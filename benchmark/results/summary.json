@@ -1,0 +1,3074 @@
+{
+  "version": "flm-benchmark-1.0.0",
+  "seed": 20260911,
+  "summary": {
+    "final_symptom": {
+      "overall": {
+        "FLA": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.13085069751335618,
+            0.17138300290855826
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 0.45,
+          "ci95": [
+            0.4219662382836977,
+            0.47835286177657566
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.05,
+          "ci95": [
+            0.03900133365271208,
+            0.06387056688974935
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.05,
+          "ci95": [
+            0.03900133365271208,
+            0.06387056688974935
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.13085069751335618,
+            0.17138300290855826
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.03205128205128205,
+          "FDAR": 0.8461538461538461,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.047058823529411764,
+          "FDAR": 0.8411764705882353,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.043010752688172046,
+          "FDAR": 0.8709677419354839,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.052941176470588235,
+          "FDAR": 0.8294117647058824,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.08982035928143713,
+          "FDAR": 0.8323353293413174,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.033707865168539325,
+          "FDAR": 0.8764044943820225,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.05202312138728324,
+          "FDAR": 0.8497109826589595,
+          "n": 173
+        }
+      }
+    },
+    "component_level_rca": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.42,
+          "ci95": [
+            0.39228425779187925,
+            0.4482263023045582
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.42,
+          "ci95": [
+            0.39228425779187925,
+            0.4482263023045582
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 0.5775,
+          "ci95": [
+            0.5492591523983976,
+            0.6052462425081784
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 0.08333333333333333,
+          "FDAR": 0.9166666666666666,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 0.15,
+          "FDAR": 0.85,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 0.1,
+          "FDAR": 0.9,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 0.7833333333333333,
+          "FDAR": 0.21666666666666667,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.18333333333333332,
+          "FDAR": 0.6666666666666666,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.21666666666666667,
+          "FDAR": 0.3,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.38333333333333336,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.23333333333333334,
+          "FDAR": 0.38333333333333336,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.35,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 0.48333333333333334,
+          "FDAR": 0.5166666666666667,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 0.5,
+          "FDAR": 0.5,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 0.6833333333333333,
+          "FDAR": 0.31666666666666665,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 0.6833333333333333,
+          "FDAR": 0.31666666666666665,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.3717948717948718,
+          "FDAR": 0.44871794871794873,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.47058823529411764,
+          "FDAR": 0.3941176470588235,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.40860215053763443,
+          "FDAR": 0.44086021505376344,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.38235294117647056,
+          "FDAR": 0.4647058823529412,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.5029940119760479,
+          "FDAR": 0.3532934131736527,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.398876404494382,
+          "FDAR": 0.4044943820224719,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.4046242774566474,
+          "FDAR": 0.4508670520231214,
+          "n": 173
+        }
+      }
+    },
+    "existence_only_provenance": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 0.45,
+          "ci95": [
+            0.4219662382836977,
+            0.47835286177657566
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.5,
+          "ci95": [
+            0.4716651122034748,
+            0.5283348877965253
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.5,
+          "ci95": [
+            0.4716651122034748,
+            0.5283348877965253
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.4230769230769231,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.4411764705882353,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.510752688172043,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.5294117647058824,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.5568862275449101,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.47752808988764045,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.5549132947976878,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "pattern_rca_proxy": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "llm_rca_proxy_strong": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "llm_rca_proxy_symptom_biased": {
+      "overall": {
+        "FLA": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.13085069751335618,
+            0.17138300290855826
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.4066666666666667,
+          "ci95": [
+            0.3791260358006975,
+            0.43480295097847965
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.4066666666666667,
+          "ci95": [
+            0.3791260358006975,
+            0.43480295097847965
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 0.43583333333333335,
+          "ci95": [
+            0.4079367492821916,
+            0.4641394291284927
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.6333333333333333,
+          "FDAR": 0.36666666666666664,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.7333333333333333,
+          "FDAR": 0.26666666666666666,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.7166666666666667,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.6,
+          "FDAR": 0.4,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.7,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.6333333333333333,
+          "FDAR": 0.36666666666666664,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 0.6333333333333333,
+          "FDAR": 0.36666666666666664,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.3974358974358974,
+          "FDAR": 0.5512820512820513,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.4117647058823529,
+          "FDAR": 0.5470588235294118,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.41397849462365593,
+          "FDAR": 0.5591397849462365,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.37058823529411766,
+          "FDAR": 0.5941176470588235,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.41916167664670656,
+          "FDAR": 0.5748502994011976,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.4438202247191011,
+          "FDAR": 0.5393258426966292,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.3872832369942196,
+          "FDAR": 0.5838150289017341,
+          "n": 173
+        }
+      }
+    },
+    "flm_full": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "flm_blind_candidate_selection": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.9866666666666667,
+          "ci95": [
+            0.9784297234949216,
+            0.9917977025850829
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.9866666666666667,
+          "ci95": [
+            0.9784297234949216,
+            0.9917977025850829
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.9935897435897436,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.9941176470588236,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.9838709677419355,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.9764705882352941,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.9820359281437125,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.9887640449438202,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.9884393063583815,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "flm_no_first_loss_rule": {
+      "overall": {
+        "FLA": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.13085069751335618,
+            0.17138300290855826
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.05,
+          "ci95": [
+            0.03900133365271208,
+            0.06387056688974935
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.05,
+          "ci95": [
+            0.03900133365271208,
+            0.06387056688974935
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.13085069751335618,
+            0.17138300290855826
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.03205128205128205,
+          "FDAR": 0.8461538461538461,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.047058823529411764,
+          "FDAR": 0.8411764705882353,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.043010752688172046,
+          "FDAR": 0.8709677419354839,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.052941176470588235,
+          "FDAR": 0.8294117647058824,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.08982035928143713,
+          "FDAR": 0.8323353293413174,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.033707865168539325,
+          "FDAR": 0.8764044943820225,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.05202312138728324,
+          "FDAR": 0.8497109826589595,
+          "n": 173
+        }
+      }
+    },
+    "flm_no_invariant_checking": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 0.45,
+          "ci95": [
+            0.4219662382836977,
+            0.47835286177657566
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.5,
+          "ci95": [
+            0.4716651122034748,
+            0.5283348877965253
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.5,
+          "ci95": [
+            0.4716651122034748,
+            0.5283348877965253
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.4230769230769231,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.4411764705882353,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.510752688172043,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.5294117647058824,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.5568862275449101,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.47752808988764045,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.5549132947976878,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "flm_no_upstream_exclusion": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.05,
+          "ci95": [
+            0.03900133365271208,
+            0.06387056688974935
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.05,
+          "ci95": [
+            0.03900133365271208,
+            0.06387056688974935
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.13085069751335618,
+            0.17138300290855826
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 0.0,
+          "FDAR": 1.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.03205128205128205,
+          "FDAR": 0.8461538461538461,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.047058823529411764,
+          "FDAR": 0.8411764705882353,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.043010752688172046,
+          "FDAR": 0.8709677419354839,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.052941176470588235,
+          "FDAR": 0.8294117647058824,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.08982035928143713,
+          "FDAR": 0.8323353293413174,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.033707865168539325,
+          "FDAR": 0.8764044943820225,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.05202312138728324,
+          "FDAR": 0.8497109826589595,
+          "n": 173
+        }
+      }
+    },
+    "flm_no_minimal_probe": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 0.43166666666666664,
+          "ci95": [
+            0.40381484185803074,
+            0.45995459489100954
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 0.43166666666666664,
+          "ci95": [
+            0.40381484185803074,
+            0.45995459489100954
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 0.6441666666666667,
+          "ci95": [
+            0.6165711979924807,
+            0.6708420635003974
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 0.21666666666666667,
+          "FDAR": 0.7833333333333333,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 0.23333333333333334,
+          "FDAR": 0.75,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 0.2,
+          "FDAR": 0.7833333333333333,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 0.6666666666666666,
+          "FDAR": 0.2,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 0.23333333333333334,
+          "FDAR": 0.5333333333333333,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 0.21666666666666667,
+          "FDAR": 0.26666666666666666,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 0.38333333333333336,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 0.25,
+          "FDAR": 0.3333333333333333,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 0.31666666666666665,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 0.11666666666666667,
+          "FDAR": 0.75,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 0.5333333333333333,
+          "FDAR": 0.4666666666666667,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 0.48333333333333334,
+          "FDAR": 0.4666666666666667,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 0.65,
+          "FDAR": 0.3,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 0.6,
+          "FDAR": 0.31666666666666665,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 0.9833333333333333,
+          "FDAR": 0.016666666666666666,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 0.9333333333333333,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 0.3782051282051282,
+          "FDAR": 0.3974358974358974,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 0.5117647058823529,
+          "FDAR": 0.2823529411764706,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 0.42473118279569894,
+          "FDAR": 0.3709677419354839,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 0.4117647058823529,
+          "FDAR": 0.38823529411764707,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 0.49101796407185627,
+          "FDAR": 0.2934131736526946,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 0.398876404494382,
+          "FDAR": 0.3651685393258427,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 0.4046242774566474,
+          "FDAR": 0.3930635838150289,
+          "n": 173
+        }
+      }
+    },
+    "flm_no_intervention": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    },
+    "flm_no_independent_replay": {
+      "overall": {
+        "FLA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "ILA": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_stage": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "RCA_confirmed": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        },
+        "1-FDAR": {
+          "accuracy": 1.0,
+          "ci95": [
+            0.9968038918566766,
+            1.0
+          ],
+          "n": 1200
+        }
+      },
+      "by_family": {
+        "retrieval_miss": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_unreachable": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_empty": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "latent_dead_path_rejected": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "rank_loss_positional_truncation": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "scope_filter_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "authority_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "provenance_corruption": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "temporal_invalidity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "identity_mismatch": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "cap_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "budget_off_by_one": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "selector_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "gate_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "assembly_duplicate_identity": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        },
+        "reader_error": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 60
+        }
+      },
+      "by_domain": {
+        "agent_memory": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 156
+        },
+        "commerce_search": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "compiler_build": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 186
+        },
+        "data_pipeline": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 170
+        },
+        "distributed_request": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 167
+        },
+        "incident_triage": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 178
+        },
+        "knowledge_assistant": {
+          "RCA_stage": 1.0,
+          "FDAR": 0.0,
+          "n": 173
+        }
+      }
+    }
+  },
+  "tests": [
+    {
+      "baseline": "final_symptom",
+      "metric": "FLA",
+      "difference": 0.85,
+      "bootstrap_ci95": [
+        0.83,
+        0.87
+      ],
+      "discordant_flm_only": 1020,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.7800590868057611e-307
+    },
+    {
+      "baseline": "final_symptom",
+      "metric": "ILA",
+      "difference": 0.55,
+      "bootstrap_ci95": [
+        0.5216666666666667,
+        0.5775
+      ],
+      "discordant_flm_only": 660,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 4.180544565216833e-199
+    },
+    {
+      "baseline": "final_symptom",
+      "metric": "RCA_stage",
+      "difference": 0.95,
+      "bootstrap_ci95": [
+        0.9375,
+        0.9616666666666667
+      ],
+      "discordant_flm_only": 1140,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 0.0
+    },
+    {
+      "baseline": "final_symptom",
+      "metric": "RCA_confirmed",
+      "difference": 0.95,
+      "bootstrap_ci95": [
+        0.9375,
+        0.9625
+      ],
+      "discordant_flm_only": 1140,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 0.0
+    },
+    {
+      "baseline": "final_symptom",
+      "metric": "1-FDAR",
+      "difference": 0.85,
+      "bootstrap_ci95": [
+        0.83,
+        0.87
+      ],
+      "discordant_flm_only": 1020,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.7800590868057611e-307
+    },
+    {
+      "baseline": "component_level_rca",
+      "metric": "FLA",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "component_level_rca",
+      "metric": "ILA",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "component_level_rca",
+      "metric": "RCA_stage",
+      "difference": 0.5800000000000001,
+      "bootstrap_ci95": [
+        0.5516666666666667,
+        0.6083333333333334
+      ],
+      "discordant_flm_only": 696,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 6.083493012144512e-210
+    },
+    {
+      "baseline": "component_level_rca",
+      "metric": "RCA_confirmed",
+      "difference": 0.5800000000000001,
+      "bootstrap_ci95": [
+        0.5525,
+        0.6083333333333334
+      ],
+      "discordant_flm_only": 696,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 6.083493012144512e-210
+    },
+    {
+      "baseline": "component_level_rca",
+      "metric": "1-FDAR",
+      "difference": 0.4225,
+      "bootstrap_ci95": [
+        0.39416666666666667,
+        0.45166666666666666
+      ],
+      "discordant_flm_only": 507,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 4.7733380679681323e-153
+    },
+    {
+      "baseline": "existence_only_provenance",
+      "metric": "FLA",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "existence_only_provenance",
+      "metric": "ILA",
+      "difference": 0.55,
+      "bootstrap_ci95": [
+        0.5225,
+        0.5783333333333334
+      ],
+      "discordant_flm_only": 660,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 4.180544565216833e-199
+    },
+    {
+      "baseline": "existence_only_provenance",
+      "metric": "RCA_stage",
+      "difference": 0.5,
+      "bootstrap_ci95": [
+        0.47250000000000003,
+        0.5291666666666667
+      ],
+      "discordant_flm_only": 600,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 4.819839730205768e-181
+    },
+    {
+      "baseline": "existence_only_provenance",
+      "metric": "RCA_confirmed",
+      "difference": 0.5,
+      "bootstrap_ci95": [
+        0.47250000000000003,
+        0.5275000000000001
+      ],
+      "discordant_flm_only": 600,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 4.819839730205768e-181
+    },
+    {
+      "baseline": "existence_only_provenance",
+      "metric": "1-FDAR",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "pattern_rca_proxy",
+      "metric": "FLA",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "pattern_rca_proxy",
+      "metric": "ILA",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "pattern_rca_proxy",
+      "metric": "RCA_stage",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "pattern_rca_proxy",
+      "metric": "RCA_confirmed",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "baseline": "pattern_rca_proxy",
+      "metric": "1-FDAR",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    }
+  ],
+  "split_summary": {
+    "replay": {
+      "final_symptom": {
+        "FLA": 0.15,
+        "ILA": 0.45,
+        "RCA_stage": 0.05,
+        "RCA_confirmed": 0.05,
+        "1-FDAR": 0.15,
+        "n": 600
+      },
+      "component_level_rca": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.4216666666666667,
+        "RCA_confirmed": 0.4216666666666667,
+        "1-FDAR": 0.595,
+        "n": 600
+      },
+      "existence_only_provenance": {
+        "FLA": 1.0,
+        "ILA": 0.45,
+        "RCA_stage": 0.5,
+        "RCA_confirmed": 0.5,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "pattern_rca_proxy": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "llm_rca_proxy_strong": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "llm_rca_proxy_symptom_biased": {
+        "FLA": 0.15,
+        "ILA": 1.0,
+        "RCA_stage": 0.425,
+        "RCA_confirmed": 0.425,
+        "1-FDAR": 0.4583333333333333,
+        "n": 600
+      },
+      "flm_full": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "flm_blind_candidate_selection": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.995,
+        "RCA_confirmed": 0.995,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "flm_no_first_loss_rule": {
+        "FLA": 0.15,
+        "ILA": 1.0,
+        "RCA_stage": 0.05,
+        "RCA_confirmed": 0.05,
+        "1-FDAR": 0.15,
+        "n": 600
+      },
+      "flm_no_invariant_checking": {
+        "FLA": 1.0,
+        "ILA": 0.45,
+        "RCA_stage": 0.5,
+        "RCA_confirmed": 0.5,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "flm_no_upstream_exclusion": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.05,
+        "RCA_confirmed": 0.05,
+        "1-FDAR": 0.15,
+        "n": 600
+      },
+      "flm_no_minimal_probe": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.43833333333333335,
+        "RCA_confirmed": 0.43833333333333335,
+        "1-FDAR": 0.6616666666666666,
+        "n": 600
+      },
+      "flm_no_intervention": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 600
+      },
+      "flm_no_independent_replay": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 600
+      }
+    },
+    "test": {
+      "final_symptom": {
+        "FLA": 0.15,
+        "ILA": 0.45,
+        "RCA_stage": 0.05,
+        "RCA_confirmed": 0.05,
+        "1-FDAR": 0.15,
+        "n": 1200
+      },
+      "component_level_rca": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.42,
+        "RCA_confirmed": 0.42,
+        "1-FDAR": 0.5775,
+        "n": 1200
+      },
+      "existence_only_provenance": {
+        "FLA": 1.0,
+        "ILA": 0.45,
+        "RCA_stage": 0.5,
+        "RCA_confirmed": 0.5,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "pattern_rca_proxy": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "llm_rca_proxy_strong": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "llm_rca_proxy_symptom_biased": {
+        "FLA": 0.15,
+        "ILA": 1.0,
+        "RCA_stage": 0.4066666666666667,
+        "RCA_confirmed": 0.4066666666666667,
+        "1-FDAR": 0.43583333333333335,
+        "n": 1200
+      },
+      "flm_full": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "flm_blind_candidate_selection": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.9866666666666667,
+        "RCA_confirmed": 0.9866666666666667,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "flm_no_first_loss_rule": {
+        "FLA": 0.15,
+        "ILA": 1.0,
+        "RCA_stage": 0.05,
+        "RCA_confirmed": 0.05,
+        "1-FDAR": 0.15,
+        "n": 1200
+      },
+      "flm_no_invariant_checking": {
+        "FLA": 1.0,
+        "ILA": 0.45,
+        "RCA_stage": 0.5,
+        "RCA_confirmed": 0.5,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "flm_no_upstream_exclusion": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.05,
+        "RCA_confirmed": 0.05,
+        "1-FDAR": 0.15,
+        "n": 1200
+      },
+      "flm_no_minimal_probe": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 0.43166666666666664,
+        "RCA_confirmed": 0.43166666666666664,
+        "1-FDAR": 0.6441666666666667,
+        "n": 1200
+      },
+      "flm_no_intervention": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 1200
+      },
+      "flm_no_independent_replay": {
+        "FLA": 1.0,
+        "ILA": 1.0,
+        "RCA_stage": 1.0,
+        "RCA_confirmed": 1.0,
+        "1-FDAR": 1.0,
+        "n": 1200
+      }
+    }
+  },
+  "split_tests": [
+    {
+      "split": "test",
+      "baseline": "final_symptom",
+      "metric": "RCA_stage",
+      "difference": 0.95,
+      "bootstrap_ci95": [
+        0.9375,
+        0.9616666666666667
+      ],
+      "discordant_flm_only": 1140,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 0.0
+    },
+    {
+      "split": "replay",
+      "baseline": "final_symptom",
+      "metric": "RCA_stage",
+      "difference": 0.95,
+      "bootstrap_ci95": [
+        0.9316666666666666,
+        0.9666666666666667
+      ],
+      "discordant_flm_only": 570,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 5.17526350329881e-172
+    },
+    {
+      "split": "test",
+      "baseline": "component_level_rca",
+      "metric": "RCA_stage",
+      "difference": 0.5800000000000001,
+      "bootstrap_ci95": [
+        0.5525,
+        0.6074999999999999
+      ],
+      "discordant_flm_only": 696,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 6.083493012144512e-210
+    },
+    {
+      "split": "replay",
+      "baseline": "component_level_rca",
+      "metric": "RCA_stage",
+      "difference": 0.5783333333333334,
+      "bootstrap_ci95": [
+        0.5366666666666666,
+        0.6166666666666667
+      ],
+      "discordant_flm_only": 347,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 6.976241401869354e-105
+    },
+    {
+      "split": "test",
+      "baseline": "llm_rca_proxy_symptom_biased",
+      "metric": "RCA_stage",
+      "difference": 0.5933333333333333,
+      "bootstrap_ci95": [
+        0.5658333333333334,
+        0.6208333333333333
+      ],
+      "discordant_flm_only": 712,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 9.282673663550585e-215
+    },
+    {
+      "split": "replay",
+      "baseline": "llm_rca_proxy_symptom_biased",
+      "metric": "RCA_stage",
+      "difference": 0.575,
+      "bootstrap_ci95": [
+        0.5366666666666666,
+        0.615
+      ],
+      "discordant_flm_only": 345,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 2.7904965607477417e-104
+    },
+    {
+      "split": "test",
+      "baseline": "pattern_rca_proxy",
+      "metric": "RCA_stage",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "split": "replay",
+      "baseline": "pattern_rca_proxy",
+      "metric": "RCA_stage",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "split": "test",
+      "baseline": "final_symptom",
+      "metric": "RCA_confirmed",
+      "difference": 0.95,
+      "bootstrap_ci95": [
+        0.9375,
+        0.9616666666666667
+      ],
+      "discordant_flm_only": 1140,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 0.0
+    },
+    {
+      "split": "replay",
+      "baseline": "final_symptom",
+      "metric": "RCA_confirmed",
+      "difference": 0.95,
+      "bootstrap_ci95": [
+        0.9316666666666666,
+        0.9666666666666667
+      ],
+      "discordant_flm_only": 570,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 5.17526350329881e-172
+    },
+    {
+      "split": "test",
+      "baseline": "component_level_rca",
+      "metric": "RCA_confirmed",
+      "difference": 0.5800000000000001,
+      "bootstrap_ci95": [
+        0.5516666666666667,
+        0.6074999999999999
+      ],
+      "discordant_flm_only": 696,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 6.083493012144512e-210
+    },
+    {
+      "split": "replay",
+      "baseline": "component_level_rca",
+      "metric": "RCA_confirmed",
+      "difference": 0.5783333333333334,
+      "bootstrap_ci95": [
+        0.5383333333333333,
+        0.6183333333333334
+      ],
+      "discordant_flm_only": 347,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 6.976241401869354e-105
+    },
+    {
+      "split": "test",
+      "baseline": "llm_rca_proxy_symptom_biased",
+      "metric": "RCA_confirmed",
+      "difference": 0.5933333333333333,
+      "bootstrap_ci95": [
+        0.5658333333333334,
+        0.6208333333333333
+      ],
+      "discordant_flm_only": 712,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 9.282673663550585e-215
+    },
+    {
+      "split": "replay",
+      "baseline": "llm_rca_proxy_symptom_biased",
+      "metric": "RCA_confirmed",
+      "difference": 0.575,
+      "bootstrap_ci95": [
+        0.5349999999999999,
+        0.615
+      ],
+      "discordant_flm_only": 345,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 2.7904965607477417e-104
+    },
+    {
+      "split": "test",
+      "baseline": "pattern_rca_proxy",
+      "metric": "RCA_confirmed",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "split": "replay",
+      "baseline": "pattern_rca_proxy",
+      "metric": "RCA_confirmed",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "split": "test",
+      "baseline": "final_symptom",
+      "metric": "1-FDAR",
+      "difference": 0.85,
+      "bootstrap_ci95": [
+        0.8291666666666666,
+        0.8708333333333333
+      ],
+      "discordant_flm_only": 1020,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.7800590868057611e-307
+    },
+    {
+      "split": "replay",
+      "baseline": "final_symptom",
+      "metric": "1-FDAR",
+      "difference": 0.85,
+      "bootstrap_ci95": [
+        0.8216666666666667,
+        0.8766666666666667
+      ],
+      "discordant_flm_only": 510,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 5.966672584960166e-154
+    },
+    {
+      "split": "test",
+      "baseline": "component_level_rca",
+      "metric": "1-FDAR",
+      "difference": 0.4225,
+      "bootstrap_ci95": [
+        0.39416666666666667,
+        0.4508333333333333
+      ],
+      "discordant_flm_only": 507,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 4.7733380679681323e-153
+    },
+    {
+      "split": "replay",
+      "baseline": "component_level_rca",
+      "metric": "1-FDAR",
+      "difference": 0.405,
+      "bootstrap_ci95": [
+        0.3666666666666667,
+        0.44499999999999995
+      ],
+      "discordant_flm_only": 243,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.4149498560666738e-73
+    },
+    {
+      "split": "test",
+      "baseline": "llm_rca_proxy_symptom_biased",
+      "metric": "1-FDAR",
+      "difference": 0.5641666666666667,
+      "bootstrap_ci95": [
+        0.5358333333333334,
+        0.5916666666666667
+      ],
+      "discordant_flm_only": 677,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 3.1895023843512216e-204
+    },
+    {
+      "split": "replay",
+      "baseline": "llm_rca_proxy_symptom_biased",
+      "metric": "1-FDAR",
+      "difference": 0.5416666666666667,
+      "bootstrap_ci95": [
+        0.5016666666666667,
+        0.5783333333333334
+      ],
+      "discordant_flm_only": 325,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 2.926047721682624e-98
+    },
+    {
+      "split": "test",
+      "baseline": "pattern_rca_proxy",
+      "metric": "1-FDAR",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    },
+    {
+      "split": "replay",
+      "baseline": "pattern_rca_proxy",
+      "metric": "1-FDAR",
+      "difference": 0.0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "discordant_flm_only": 0,
+      "discordant_baseline_only": 0,
+      "mcnemar_exact_p": 1.0
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use First Loss Methodology, please cite this artifact."
+title: "First Loss Methodology"
+version: v1.0.0
+doi: 10.0000/placeholder
+authors:
+  - family-names: Chen
+    given-names: KuangYu
+    affiliation: "Veridical Tech; Xi'an University of Science and Technology Hi-tech College"
+    email: rin@rin.red
+license: MIT
+repository-code: "https://github.com/rin259/first-loss-methodology"
+keywords:
+  - root-cause analysis
+  - fault localization
+  - provenance
+  - evidence attribution
+  - software engineering
+  - benchmark
+date-released: "2026-09-11"

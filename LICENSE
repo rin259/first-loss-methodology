@@ -1,0 +1,7 @@
+# License overview
+
+- Code: MIT License, see `LICENSE-CODE`.
+- Benchmark data and results: Creative Commons Attribution 4.0 International, see `LICENSE-DATA`.
+- Paper text and prose: Creative Commons Attribution 4.0 International, see `LICENSE-PAPER`.
+
+The previous single-file MIT `LICENSE` has been replaced by this layered overview.

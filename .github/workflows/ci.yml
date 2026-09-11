@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+      - name: Validate schemas
+        run: |
+          python3 benchmark/run_experiments.py --output-dir /tmp/flm-ci-results --samples 10
+          python3 benchmark/conservation_schema.py /tmp/flm-ci-results/cases.jsonl --split test
+          python3 benchmark/conservation_schema.py /tmp/flm-ci-results/cases.jsonl --split replay
+      - name: Smoke-check report
+        run: test -s /tmp/flm-ci-results/REPORT.md
