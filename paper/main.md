@@ -1,9 +1,9 @@
 # First Loss: A Generalizable Software Engineering Method for Evidence-Centric Root-Cause Attribution
 
 Chen KuangYu ^1,2^  
-^1^ Veridical Tech  
+^1^ Veridical Tech, Inc.  
 ^2^ Xi'an University of Science and Technology Hi-tech College  
-Corresponding author: Chen KuangYu <rin@rin.red>
+Corresponding author: Chen KuangYu <contact@veridical.tech>
 
 **Preprint v1.0.0.** AI assistants supported writing, code implementation, and experiment organization. The author designed the method, validated the experiments, and approved the final revision.
 
@@ -553,6 +553,8 @@ Blind candidate selection 测的是干预目标不确定时的鲁棒性。规则
 
 ### 7.1 Symptom
 
+This incident occurred in the production recall pipeline of SPM-Polaris; the methodology is stated independently of that system instance.
+
 真实链路中的预期行为是 vector arm 返回 ranked evidence，metadata lookup 补充字段，cap 保留 top-$N$，最终 reader 消费结果。实际表现为预期 evidence 在最终上下文中缺失，症状类似 recall failure。
 
 ### 7.2 Evidence funnel
@@ -632,15 +634,15 @@ Using CRediT terminology: **Chen KuangYu**: conceptualization, methodology, soft
 
 ## Funding and acknowledgements
 
-This work was independently conducted at Veridical Tech and Xi'an University of Science and Technology Hi-tech College. No external funding is reported.
+This work was independently conducted at Veridical Tech, Inc. and Xi'an University of Science and Technology Hi-tech College. No external funding is reported.
 
 ## Conflicts of interest
 
-The author reports affiliation with Veridical Tech and Xi'an University of Science and Technology Hi-tech College, and no other competing financial interests related to this work.
+The author reports affiliation with Veridical Tech, Inc. and Xi'an University of Science and Technology Hi-tech College, and no other competing financial interests related to this work.
 
 ## Data and code availability
 
-The synthetic benchmark, generator, conservation schema, frozen cases, per-case metrics, statistical summaries, protocol, data card, and model card are released in the accompanying repository. The real vector-arm incident is published only as a structured qualitative replay. Code is licensed under MIT; benchmark data are licensed under CC-BY-4.0; the paper text is licensed under CC-BY-4.0.
+The synthetic benchmark, generator, conservation schema, frozen cases, per-case metrics, statistical summaries, protocol, data card, and model card are released in the accompanying repository. The real SPM-Polaris vector-arm incident is published only as a structured qualitative replay. Code is licensed under MIT; benchmark data are licensed under CC-BY-4.0; the paper text is licensed under CC-BY-4.0. A permanent artifact DOI is available at [https://doi.org/10.5281/zenodo.22704463](https://doi.org/10.5281/zenodo.22704463).
 
 ## Reproducibility statement
 

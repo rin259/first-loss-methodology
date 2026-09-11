@@ -2,6 +2,8 @@
 
 ## Identity
 
+- System instance: SPM-Polaris production recall pipeline
+
 - Incident class: `rank_loss_positional_truncation`
 - Domain: `knowledge_assistant`
 - Benchmark mapping: metadata lookup loses rank invariant; cap causes First Loss.

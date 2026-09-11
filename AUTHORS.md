@@ -2,8 +2,8 @@
 
 ## Chen KuangYu
 
-- Affiliations: Veridical Tech; Xi'an University of Science and Technology Hi-tech College
-- Email: rin@rin.red
+- Affiliations: Veridical Tech, Inc.; Xi'an University of Science and Technology Hi-tech College
+- Email: contact@veridical.tech
 - ORCID: not provided
 - Role: corresponding author
 

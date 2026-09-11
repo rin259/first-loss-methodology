@@ -6,8 +6,8 @@ doi: 10.5281/zenodo.22704463
 authors:
   - family-names: Chen
     given-names: KuangYu
-    affiliation: "Veridical Tech; Xi'an University of Science and Technology Hi-tech College"
-    email: rin@rin.red
+    affiliation: "Veridical Tech, Inc.; Xi'an University of Science and Technology Hi-tech College"
+    email: contact@veridical.tech
 license: MIT
 repository-code: "https://github.com/rin259/first-loss-methodology"
 identifiers:
