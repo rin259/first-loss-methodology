@@ -2,11 +2,9 @@
 
 ## Artifact DOI
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22704463.svg)](https://doi.org/10.5281/zenodo.22704463)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22709898.svg)](https://doi.org/10.5281/zenodo.22709898)
 
-Version `v1.0.0` is archived at DOI [10.5281/zenodo.22704463](https://doi.org/10.5281/zenodo.22704463).
-
-The `v1.1.0` manuscript is currently a release candidate. Do not reuse the `v1.0.0` version DOI for it; create a new Zenodo version first, then update this file and `CITATION.cff`.
+Version `v1.1.0` is archived at DOI [10.5281/zenodo.22709898](https://doi.org/10.5281/zenodo.22709898). The earlier `v1.0.0` archive remains available at DOI [10.5281/zenodo.22704463](https://doi.org/10.5281/zenodo.22704463).
 
 ## arXiv
 

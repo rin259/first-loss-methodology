@@ -4,12 +4,12 @@
 
 ## Cite
 
-See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The archived artifact is `v1.0.0`, DOI [10.5281/zenodo.22704463](https://doi.org/10.5281/zenodo.22704463). The repository also contains the `v1.1.0` preprint candidate; its DOI and arXiv identifier will be added only after those deposits exist.
+See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.0` preprint and reproducibility artifact are archived at DOI [10.5281/zenodo.22709898](https://doi.org/10.5281/zenodo.22709898). An arXiv identifier will be added after submission and moderation.
 
 这个仓库把 FLM 从工程调试笔记提升为可复现的软件工程方法研究：
 
 - `paper/manuscript.tex`：英文投稿稿，收紧理论边界并加入正式相关工作、异构运行时评估和有效性威胁。
-- `output/pdf/first-loss-v1.1.0-preprint.pdf`：编译并完成视觉检查的候选预印本。
+- `output/pdf/first-loss-v1.1.0-preprint.pdf`：编译并完成视觉检查的正式归档预印本。
 - `paper/main.md`：已归档的 `v1.0.0` 中文/英文混合原稿。
 - `experiments/PROTOCOL.md`：跨领域可重复实验协议，包含适用性条件、领域适配、指标和统计要求。
 - `benchmark/run_experiments.py`：冻结 seed 的受控 replay benchmark。

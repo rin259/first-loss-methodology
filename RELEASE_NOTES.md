@@ -1,8 +1,8 @@
 # Release notes
 
-## v1.1.0 release candidate
+## v1.1.0
 
-This candidate narrows the paper from a generality claim to evidence-boundary reasoning supported by controlled evaluations.
+This release narrows the paper from a generality claim to evidence-boundary reasoning supported by controlled evaluations. The release is permanently archived at DOI [10.5281/zenodo.22709898](https://doi.org/10.5281/zenodo.22709898).
 
 ### Paper
 
@@ -22,9 +22,8 @@ This candidate narrows the paper from a generality claim to evidence-boundary re
 - Reports underflowed exact p-values as bounds rather than zero.
 - Adds a frozen 300-request real-LLM protocol and a preregistration draft for a blinded engineer study.
 
-### Release blockers
+### Follow-up work
 
-- Decide whether to conduct the human study or state that it is future work.
-- Create a new Zenodo version and obtain its version DOI.
+- Conduct the prepared human study in future work, subject to participant recruitment and an ethics or exemption determination.
 - Submit the final PDF to arXiv and record the identifier.
-- Update `CITATION.cff`, `CITATION.md`, and `citation.bib` with the new DOI and arXiv ID.
+- Update citation metadata with the arXiv ID after it is assigned.

@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use First Loss Methodology, please cite this artifact."
 title: "First Loss Methodology"
-version: v1.0.0
-doi: 10.5281/zenodo.22704463
+version: v1.1.0
+doi: 10.5281/zenodo.22709898
 authors:
   - family-names: Chen
     given-names: KuangYu
@@ -10,9 +10,9 @@ authors:
     email: rin@rin.red
 repository-code: "https://github.com/rin259/first-loss-methodology"
 identifiers:
-  - identifier: "10.5281/zenodo.22704463"
+  - identifier: "10.5281/zenodo.22709898"
     type: doi
-    description: "Zenodo version DOI for v1.0.0"
+    description: "Zenodo version DOI for v1.1.0"
 keywords:
   - root-cause analysis
   - fault localization
