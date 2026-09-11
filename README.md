@@ -4,7 +4,7 @@
 
 ## Cite
 
-See `CITATION.cff` or `citation.bib`. Current artifact version is `v1.0.0`; DOI is a placeholder until an archive DOI is minted.
+See `CITATION.cff` or `citation.bib`. Current artifact version is `v1.0.0`; DOI is `10.5281/zenodo.22704463`.
 
 这个仓库把 FLM 从工程调试笔记提升为可复现的软件工程方法研究：
 
