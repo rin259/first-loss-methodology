@@ -1,0 +1,17 @@
+{
+  "prompt_version": "llm-rca-v1.1.1",
+  "model": "glm-5.3-flash",
+  "temperature": 0.0,
+  "seed": 20260911,
+  "cases": 60,
+  "repeats": 5,
+  "api": "OpenAI Responses API",
+  "base_url": "https://ajdgsu.online:50808/v1",
+  "documentation": "https://developers.openai.com/api/docs/guides/structured-outputs",
+  "max_output_tokens": 300,
+  "response_format": "json_object",
+  "workers": 6,
+  "provider_reported_model": "glm-5-3-flash",
+  "pilot_runs_excluded": 2,
+  "pilot_exclusion_reason": "The gateway did not enforce json_schema and the first json_object parser discarded nonconforming raw fields. The v1.1.1 protocol was frozen after a six-case compatibility smoke test."
+}

@@ -1,0 +1,42 @@
+{
+  "component_heuristic": {
+    "confirmed_rca": 0.0,
+    "exact_fla": 0.9444444444444444,
+    "exact_rca": 0.0,
+    "n": 360,
+    "overclaim_rate": 1.0,
+    "safe_attribution": 0.0
+  },
+  "final_symptom": {
+    "confirmed_rca": 0.0,
+    "exact_fla": 0.0,
+    "exact_rca": 0.0,
+    "n": 360,
+    "overclaim_rate": 1.0,
+    "safe_attribution": 0.0
+  },
+  "flm_full": {
+    "confirmed_rca": 0.9611111111111111,
+    "exact_fla": 0.9611111111111111,
+    "exact_rca": 0.9611111111111111,
+    "n": 360,
+    "overclaim_rate": 0.0,
+    "safe_attribution": 0.9805555555555555
+  },
+  "flm_no_intervention": {
+    "confirmed_rca": 0.0,
+    "exact_fla": 0.9611111111111111,
+    "exact_rca": 0.9611111111111111,
+    "n": 360,
+    "overclaim_rate": 0.0,
+    "safe_attribution": 0.9805555555555555
+  },
+  "flm_no_replay": {
+    "confirmed_rca": 0.9444444444444444,
+    "exact_fla": 0.9444444444444444,
+    "exact_rca": 0.9444444444444444,
+    "n": 360,
+    "overclaim_rate": 0.0,
+    "safe_attribution": 0.9722222222222222
+  }
+}

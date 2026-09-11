@@ -1,0 +1,12 @@
+{
+  "attribution_accuracy": 0.92,
+  "cases": 60,
+  "exact_fla": 0.9866666666666667,
+  "exact_ila": 0.8133333333333334,
+  "exact_rca": 0.9733333333333334,
+  "overclaim_rate": 0.04666666666666667,
+  "repeat_consistency": 0.2,
+  "runs": 300,
+  "schema_adherence": 1.0,
+  "status_accuracy": 0.9266666666666666
+}

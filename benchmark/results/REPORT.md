@@ -1,6 +1,6 @@
 # FLM synthetic experiment report
 
-- Benchmark version: `flm-benchmark-1.0.0`
+- Benchmark version: `flm-benchmark-1.1.0`
 - Master seed: `20260911`
 - Frozen test cases: `1200`
 - Bootstrap samples: `5000`
@@ -28,20 +28,20 @@
 
 | Baseline | Metric | Δ | Bootstrap 95% CI | McNemar p |
 |---|---|---:|---:|---:|
-| `final_symptom` | FLA | +0.850 | [+0.830, +0.870] | 1.78e-307 |
-| `final_symptom` | ILA | +0.550 | [+0.522, +0.578] | 4.181e-199 |
-| `final_symptom` | RCA_stage | +0.950 | [+0.938, +0.962] | 0 |
-| `final_symptom` | RCA_confirmed | +0.950 | [+0.938, +0.963] | 0 |
-| `final_symptom` | 1-FDAR | +0.850 | [+0.830, +0.870] | 1.78e-307 |
+| `final_symptom` | FLA | +0.850 | [+0.829, +0.870] | 1.78e-307 |
+| `final_symptom` | ILA | +0.550 | [+0.521, +0.578] | 4.181e-199 |
+| `final_symptom` | RCA_stage | +0.950 | [+0.938, +0.962] | <1e-300 |
+| `final_symptom` | RCA_confirmed | +0.950 | [+0.938, +0.962] | <1e-300 |
+| `final_symptom` | 1-FDAR | +0.850 | [+0.830, +0.869] | 1.78e-307 |
 | `component_level_rca` | FLA | +0.000 | [+0.000, +0.000] | 1 |
 | `component_level_rca` | ILA | +0.000 | [+0.000, +0.000] | 1 |
 | `component_level_rca` | RCA_stage | +0.580 | [+0.552, +0.608] | 6.083e-210 |
 | `component_level_rca` | RCA_confirmed | +0.580 | [+0.552, +0.608] | 6.083e-210 |
-| `component_level_rca` | 1-FDAR | +0.422 | [+0.394, +0.452] | 4.773e-153 |
+| `component_level_rca` | 1-FDAR | +0.422 | [+0.395, +0.452] | 4.773e-153 |
 | `existence_only_provenance` | FLA | +0.000 | [+0.000, +0.000] | 1 |
 | `existence_only_provenance` | ILA | +0.550 | [+0.522, +0.578] | 4.181e-199 |
-| `existence_only_provenance` | RCA_stage | +0.500 | [+0.473, +0.529] | 4.82e-181 |
-| `existence_only_provenance` | RCA_confirmed | +0.500 | [+0.473, +0.528] | 4.82e-181 |
+| `existence_only_provenance` | RCA_stage | +0.500 | [+0.472, +0.529] | 4.82e-181 |
+| `existence_only_provenance` | RCA_confirmed | +0.500 | [+0.472, +0.528] | 4.82e-181 |
 | `existence_only_provenance` | 1-FDAR | +0.000 | [+0.000, +0.000] | 1 |
 | `pattern_rca_proxy` | FLA | +0.000 | [+0.000, +0.000] | 1 |
 | `pattern_rca_proxy` | ILA | +0.000 | [+0.000, +0.000] | 1 |
@@ -60,12 +60,12 @@
 
 | Split | Metric | Δ | Bootstrap 95% CI | McNemar p |
 |---|---|---:|---:|---:|
-| `test` | RCA_stage | +0.593 | [+0.566, +0.621] | 9.283e-215 |
-| `replay` | RCA_stage | +0.575 | [+0.537, +0.615] | 2.79e-104 |
-| `test` | RCA_confirmed | +0.593 | [+0.566, +0.621] | 9.283e-215 |
+| `test` | RCA_stage | +0.593 | [+0.566, +0.622] | 9.283e-215 |
+| `replay` | RCA_stage | +0.575 | [+0.535, +0.615] | 2.79e-104 |
+| `test` | RCA_confirmed | +0.593 | [+0.565, +0.621] | 9.283e-215 |
 | `replay` | RCA_confirmed | +0.575 | [+0.535, +0.615] | 2.79e-104 |
-| `test` | 1-FDAR | +0.564 | [+0.536, +0.592] | 3.19e-204 |
-| `replay` | 1-FDAR | +0.542 | [+0.502, +0.578] | 2.926e-98 |
+| `test` | 1-FDAR | +0.564 | [+0.537, +0.592] | 3.19e-204 |
+| `replay` | 1-FDAR | +0.542 | [+0.502, +0.582] | 2.926e-98 |
 
 ## Ablations
 

@@ -1,0 +1,242 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\newcommand{\FL}{\operatorname{FL}}
+\newcommand{\IL}{\operatorname{IL}}
+\newcommand{\NA}{\textemdash}
+
+\title{First Loss: Evidence-Boundary Reasoning for Root-Cause Attribution}
+\author{KuangYu Chen\\
+Veridical Tech, Inc.\\
+Xi'an University of Science and Technology Hi-tech College\\
+\texttt{rin@rin.red}}
+\date{Preprint candidate v1.1.0, September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Failures in multi-stage software systems often become visible after the evidence needed for a correct result has already disappeared or changed meaning. Debugging from the final symptom can therefore blame a component that never received the relevant evidence. First Loss Methodology (FLM) treats an execution as a sequence of evidence transformations. \emph{First Loss} marks the first boundary where evidence becomes unavailable to the next stage; \emph{Invariant Loss} marks the first observed violation of identity, order, scope, time, provenance, authority, or lifecycle. Neither is automatically the root cause, which still requires intervention.
+
+We formalize this distinction, limit the attribution rule to the observed lineage segment, and define bounded answers for missing observations, explicit exceptions for nonlocal effects, and segment-aware handling of evidence reacquisition. A controlled benchmark with 1,200 test cases and a 600-case replay window checks the internal behavior of the rules. Three separate executable reference runtimes for retrieval-augmented generation, ETL, and build dependency resolution add 360 cases with partial traces, noisy probes, nonlocal side effects, and reacquisition. FLM attains 0.981 safe-attribution accuracy in this second evaluation; removing independent replay lowers it to 0.972, while removing intervention reduces confirmed root-cause accuracy from 0.961 to zero. A 300-response GLM baseline reaches 0.920 overall attribution accuracy and 0.973 exact-path root-cause accuracy, but only 0.200 exact agreement across five repeated runs. These results establish reproducibility and boundary behavior in controlled systems. They do not establish production-wide generality.
+\end{abstract}
+
+\section{Introduction}
+
+A reader fails to cite a document. A build fails at the linker. A record is missing from a downstream table. The visible component is an obvious place to start looking, but it may be the wrong place to assign cause. In each example, the required evidence may have vanished earlier: a ranked document was reordered before a cap, an artifact version changed during resolution, or a join key was corrupted before the record reached the sink.
+
+Fault localization usually ranks suspicious program locations from failing executions \cite{jones2002visualization,abreu2009spectrum}. Cause-transition and cause-effect work asks where a failing state first diverges from a passing one \cite{zeller2002causeeffect,cleve2005locating}. Distributed tracing follows requests across service boundaries \cite{sigelman2010dapper,sambasivan2011requestflows}, while provenance records where data came from and how it changed \cite{buneman2001whywhere,cheney2009provenance}. FLM builds on these ideas but asks a narrower question: what may be blamed when a particular piece of evidence did not survive the path to the observed failure?
+
+The method separates three locations that are easy to collapse into one:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Invariant Loss}: the first observed semantic corruption;
+  \item \textbf{First Loss}: the first boundary where the evidence becomes unavailable;
+  \item \textbf{Root cause}: the factor whose controlled change removes the failure.
+\end{itemize}
+This separation gives FLM its main rule: a stage cannot be the direct-path cause of losing evidence that never reached it. The rule is intentionally narrower than ``the downstream component is healthy.'' Shared state, callbacks, concurrency, and hidden protocols can still create nonlocal causes.
+
+This paper contributes (1) an evidence-lineage model with explicit loss and invariant boundaries; (2) rules for exact, bounded, nonlocal, and reacquired cases; (3) a confirmation protocol based on a frozen baseline and single-variable intervention; and (4) two reproducible evaluations, including three executable reference runtimes. The artifact is archived separately \cite{chen2026firstlossartifact}.
+
+\section{Related work}
+
+\subsection{Fault localization and cause transitions}
+
+Spectrum-based fault localization uses coverage and test outcomes to rank suspicious program entities \cite{jones2002visualization,abreu2009spectrum}. It is useful when the target is a statement, branch, or method. FLM instead follows a named evidence item across system boundaries. The two approaches can be combined: FLM can first narrow the admissible evidence path, after which fault localization can rank code within the remaining stages.
+
+Zeller's cause-effect chains and Cleve and Zeller's cause transitions identify differences that connect a failure to its origin \cite{zeller2002causeeffect,cleve2005locating}. FLM shares the interest in early divergence but does not equate the first semantic divergence with the first disappearance. A record may keep flowing after its tenant, ordering, or version invariant has failed.
+
+\subsection{Provenance and distributed traces}
+
+Data provenance distinguishes why an output exists from where its contributing values came from \cite{buneman2001whywhere,cheney2009provenance}. FLM uses lineage as its identity backbone, then adds consumability and stage-specific invariants. Provenance alone does not say whether an output remained suitable for the next consumer.
+
+Request-flow comparison and distributed tracing reconstruct cross-service execution paths \cite{sambasivan2011requestflows,sigelman2010dapper}. MicroRCA combines service dependencies, metrics, and anomaly information to localize performance faults \cite{wu2020microrca}. FLM is not a replacement for those systems. It is an attribution discipline that can consume their traces when the incident depends on evidence survival.
+
+\subsection{Causal confirmation and RAG pipelines}
+
+Counterfactual reasoning distinguishes association from intervention \cite{pearl2009causality}. FLM therefore labels a root cause \emph{confirmed} only after a frozen fail-before/pass-after comparison and an independent replay. In retrieval-augmented generation, retrieved documents are explicit non-parametric evidence \cite{lewis2020rag}; ranking, metadata enrichment, context caps, and assembly make that setting a natural example, but the method is not tied to RAG.
+
+\section{Method}
+
+\subsection{Evidence transformations}
+
+Let a system instance be
+\begin{equation}
+\mathcal{M}=(\mathcal{E},\mathcal{S},\Omega),
+\end{equation}
+where $\mathcal{E}$ is the evidence universe, $\mathcal{S}=(S_1,\ldots,S_n)$ is an ordered path of transformations, and $\Omega$ is the observation model. An evidence item
+\begin{equation}
+E=(id,c,m,p,a,l)
+\end{equation}
+contains identity, content, metadata, provenance, authority, and lifecycle state. A transformation may copy, split, merge, enrich, reorder, filter, or reject an item. Lineage identity is therefore a recoverable mapping, not object identity.
+
+For a lineage representation of $E$ after stage $i$, define
+\begin{equation}
+P_i(E)=
+\begin{cases}
+1 & \text{if the representation is available and consumable downstream},\\
+0 & \text{if it is unavailable or unusable},\\
+? & \text{if }\Omega\text{ does not observe the boundary.}
+\end{cases}
+\end{equation}
+Consumability matters. A byte string that survives storage but cannot be decoded by the next stage is absent for this analysis.
+
+\subsection{First Loss and Invariant Loss}
+
+Within one continuously observed lineage segment,
+\begin{equation}
+\FL(E)=\min\{i : P_i(E)=1 \land P_{i+1}(E)=0\}.
+\end{equation}
+The First Loss stage is $S_{i+1}$. If an item later returns through fallback retrieval or a side input, the return starts a new segment. FLM reports the earlier loss and the reacquisition; it does not pretend that presence is monotone.
+
+Let $I_{i,v}^{obs}(E)$ and $I_{i,v}^{exp}(E)$ be the observed and expected values of invariant $v$ after stage $i$. Then
+\begin{equation}
+\IL(E)=\min\{i : \exists v, I_{i,v}^{obs}(E)\neq I_{i,v}^{exp}(E)\}.
+\end{equation}
+An ordering violation can precede a cap that removes the item, so $\IL(E)<\FL(E)$. An expired item may remain present until the final output, in which case Invariant Loss exists without an earlier disappearance.
+
+\subsection{Attribution boundary and its limits}
+
+Suppose $\FL(E)=k$ on an observed lineage segment and the failure propagates through that same evidence path. Stages after $S_k$ are excluded as \emph{direct-path causes} of losing $E$. This is the attribution boundary. It does not exclude four alternatives:
+\begin{enumerate}[leftmargin=*]
+  \item a later stage has an independent defect;
+  \item an upstream stage changes shared state used downstream;
+  \item an implicit callback or concurrent action bypasses the observed path;
+  \item the evidence is reacquired from another source.
+\end{enumerate}
+When one of these mechanisms is plausible, FLM returns a cross-stage exception instead of a component-wide exclusion.
+
+If $P_i(E)=1$, $P_j(E)=0$, and one or more boundaries between $i$ and $j$ are unobserved, the method reports the interval $(S_i,S_j]$. It must not select a hidden stage merely because that stage is expected from the architecture. This is \emph{bounded attribution}.
+
+\subsection{Confirmation protocol}
+
+FLM distinguishes a candidate from a confirmed cause. Confirmation requires a reproducible failing baseline, a recorded First Loss or bounded interval, an explicit invariant or rejection predicate, a minimal counterexample, a single-variable intervention, fail-before/pass-after evidence, upstream checks, and an independent replay. Without intervention, the output remains a candidate set. Without replay, transient probe errors remain unresolved.
+
+The confirmation level is also granular. An intervention that changes an entire metadata stage confirms a stage-level cause. Predicate-level confirmation needs the exact configuration, code revision, and before/after trace for the predicate itself.
+
+\section{Evaluation}
+
+We ask four questions: whether FLM locates evidence loss, whether it separates semantic corruption from disappearance, whether it avoids unsafe downstream attribution, and whether intervention and replay change the strength of the result.
+
+\subsection{Controlled rule benchmark}
+
+The first benchmark freezes 1,200 test cases and 600 cases in a separate seed window. It covers 16 single-fault and four compound-fault families over one nine-stage abstract pipeline. Ground truth is generated from the injection specification before any method runs. This benchmark checks rule implementation and reproducibility, not domain generality.
+
+Table~\ref{tab:synthetic} reports the central result. A deterministic trace-pattern baseline matches FLM exactly, which is expected because both receive complete traces. The meaningful comparison is with methods that omit the attribution boundary or invariant checks.
+
+\begin{table}[t]
+\centering
+\caption{Controlled benchmark, 1,200 test cases.}
+\label{tab:synthetic}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & FLA & ILA & RCA & Confirmed & 1-FDAR \\
+\midrule
+Final symptom & .150 & .450 & .050 & .050 & .150 \\
+Component RCA & 1.000 & 1.000 & .420 & .420 & .578 \\
+Existence only & 1.000 & .450 & .500 & .500 & 1.000 \\
+Trace pattern & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+FLM & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The published run is exactly reproducible. We also corrected the bootstrap implementation in v1.1.0 so paired comparisons resample shared case indices rather than drawing each method independently. Point estimates are unchanged; confidence intervals are regenerated from the corrected procedure.
+
+\subsection{Executable heterogeneous runtimes}
+
+The second benchmark does not rename one common pipeline. It executes three separate implementations:
+\begin{itemize}[leftmargin=*]
+  \item a RAG path that ranks documents, enriches metadata, applies fallback retrieval, caps context, and answers;
+  \item an ETL path that parses events, maps keys, replays dead letters, joins dimensions, and commits a window;
+  \item a build path that resolves versions, reads a cache, falls back to vendored artifacts, links, and tests.
+\end{itemize}
+Each runtime has six profiles: local invariant-first failure, direct loss, hidden loss-stage observation, noisy probes, an explicit nonlocal side effect, and evidence reacquisition. Twenty seeded repetitions per runtime/profile yield 360 cases. Five probes are available in noisy cases.
+
+Safe attribution requires an exact answer for fully observed local paths, a containing interval for hidden observations, an explicit exception for nonlocal effects, and segment-aware handling of reacquisition. Table~\ref{tab:runtime} reports the results.
+
+\begin{table}[t]
+\centering
+\caption{Executable-runtime evaluation, 360 cases.}
+\label{tab:runtime}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & Safe & FLA & RCA & Confirmed & Overclaim \\
+\midrule
+Final symptom & .000 & .000 & .000 & .000 & 1.000 \\
+Component heuristic & .000 & .944 & .000 & .000 & 1.000 \\
+FLM, no intervention & .981 & .961 & .961 & .000 & .000 \\
+FLM, no replay & .972 & .944 & .944 & .944 & .000 \\
+FLM & .981 & .961 & .961 & .961 & .000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The intervention ablation now measures what the protocol claims: localization can remain correct, but the result is not confirmed. Replay helps under probe noise, though five repetitions do not eliminate every error. The nonlocal profile provides an explicit side-effect signal, so it tests exception handling rather than discovery of hidden nonlocal causes.
+
+\subsection{Real-LLM baseline}
+
+The real-model baseline draws 60 cases stratified by runtime and profile and repeats each case five times. It hides profile and ground truth, fixes the prompt and output contract, and records the requested and provider-reported model identifiers, temperature, prompt hash, response identifier, usage, latency, raw output, and per-run scores. The model does not receive the FLM boundary rule.
+
+We requested \texttt{glm-5.3-flash} through an OpenAI-compatible Responses endpoint; the provider reported \texttt{glm-5-3-flash}. The gateway accepted but did not enforce strict JSON Schema, so two compatibility pilots were excluded. We then froze prompt version \texttt{llm-rca-v1.1.1}, used JSON-object mode with exact field validation, and ran 300 requests. The final run consumed 218,555 input and 90,129 output tokens.
+
+\begin{table}[t]
+\centering
+\caption{Real-model baseline, 60 cases with five runs each.}
+\label{tab:llm}
+\begin{tabular}{lr}
+\toprule
+Metric & Result \\
+\midrule
+Attribution accuracy & .920 \\
+Exact-path FLA / ILA / RCA & .987 / .813 / .973 \\
+Status accuracy & .927 \\
+Risky-case overclaim rate & .047 \\
+Five-run exact agreement & .200 \\
+Final schema adherence & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The model's exact-path RCA is slightly higher than FLM's 0.961 on this sample. FLM has the stronger overall controlled result because it explicitly returns bounded, exception, and reacquisition states, but the comparison is not a model leaderboard: the methods have different confirmation semantics, the sample is small, and the gateway's model build is not independently verifiable. The low five-run agreement is the clearest model result. A majority-vote analysis should be preregistered before it is used as a headline metric.
+
+\section{Production incident replay}
+
+The motivating incident occurred in the SPM-Polaris recall pipeline. Vector retrieval returned ranked evidence. Metadata enrichment preserved the records but not their order. A downstream cap then removed the target by position. The target never reached selection, gating, assembly, or the reader.
+
+The observed Invariant Loss was the metadata stage, and First Loss occurred at the cap. Preserving rank across metadata lookup, with the query, corpus, retrieval parameters, and cap fixed, removed the failure in another process and time window. The released replay supports a confirmed \emph{stage-level} cause at metadata enrichment. Because the public artifact omits the production query, corpus revision, code revision, and before/after payloads, the specific predicate remains a candidate rather than a publicly reproducible confirmed cause.
+
+\section{Threats to validity}
+
+\textbf{Construct validity.} The first benchmark encodes FLM-compatible ground truth, so its perfect result is an implementation check. The executable runtimes reduce that coupling but remain authored reference systems. Safe attribution is a method-specific outcome and should not replace end-to-end incident resolution time.
+
+\textbf{Internal validity.} Faults and probes are controlled, and the same authors designed the method and evaluation. The final real-LLM prompt was frozen after two compatibility pilots, not before any contact with the endpoint. Those pilots are excluded and documented, but prompt adaptation can bias the result. The gateway's provider-reported model ID is not a versioned model snapshot. A preregistered external evaluation would reduce both risks.
+
+\textbf{External validity.} Three executable runtimes are more informative than seven renamed instances, but they are small and deterministic. The study does not cover production concurrency, organizational handoffs, or unknown ground truth. One production replay shows plausibility, not prevalence.
+
+\textbf{Conclusion validity.} Confidence intervals and McNemar tests describe repeated benchmark cases, not a random sample of all incidents. Multiple baseline comparisons should be treated as secondary. Very small exact $p$-values are reported as bounds rather than numerical zero.
+
+\section{Discussion}
+
+FLM is most useful when evidence has a stable or recoverable identity, stages are ordered along a relevant path, invariants can be checked, and at least a few boundaries can be observed or replayed. When those conditions fail, the honest output is an interval or an exception. That is not a failed diagnosis. It is the boundary of what the trace supports.
+
+The method also changes the order of work. Engineers first ask whether the evidence reached a stage, then whether it still meant the same thing, and only then whether that stage behaved correctly. This ordering does not make causal reasoning automatic, but it stops a common mistake: investigating a component as the cause of losing input it never received.
+
+\section{Conclusion}
+
+First Loss is an attribution boundary, not a root cause. Invariant Loss can occur earlier, and intervention supplies the causal claim that traces alone cannot. By limiting exclusion to an observed lineage segment, reporting bounded intervals, and recognizing nonlocal and reacquired paths, FLM turns a debugging intuition into a rule that can fail safely. The current evidence supports reproducibility and controlled boundary behavior. Production generality remains an empirical question.
+
+\section*{Artifact and disclosures}
+
+Code is licensed under MIT. Benchmark data and paper text are licensed under CC BY 4.0. The author designed the method, validated the experiments, and approved the manuscript. AI assistants supported prose drafting, code implementation, and experiment organization. No human-subject experiment was conducted. No external funding is reported.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

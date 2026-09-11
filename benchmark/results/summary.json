@@ -1,5 +1,5 @@
 {
-  "version": "flm-benchmark-1.0.0",
+  "version": "flm-benchmark-1.1.0",
   "seed": 20260911,
   "summary": {
     "final_symptom": {
@@ -2291,7 +2291,7 @@
       "metric": "FLA",
       "difference": 0.85,
       "bootstrap_ci95": [
-        0.83,
+        0.8291666666666667,
         0.87
       ],
       "discordant_flm_only": 1020,
@@ -2303,8 +2303,8 @@
       "metric": "ILA",
       "difference": 0.55,
       "bootstrap_ci95": [
-        0.5216666666666667,
-        0.5775
+        0.5208333333333334,
+        0.5783333333333334
       ],
       "discordant_flm_only": 660,
       "discordant_baseline_only": 0,
@@ -2328,7 +2328,7 @@
       "difference": 0.95,
       "bootstrap_ci95": [
         0.9375,
-        0.9625
+        0.9616666666666667
       ],
       "discordant_flm_only": 1140,
       "discordant_baseline_only": 0,
@@ -2340,7 +2340,7 @@
       "difference": 0.85,
       "bootstrap_ci95": [
         0.83,
-        0.87
+        0.8691666666666666
       ],
       "discordant_flm_only": 1020,
       "discordant_baseline_only": 0,
@@ -2375,8 +2375,8 @@
       "metric": "RCA_stage",
       "difference": 0.5800000000000001,
       "bootstrap_ci95": [
-        0.5516666666666667,
-        0.6083333333333334
+        0.5525,
+        0.6075
       ],
       "discordant_flm_only": 696,
       "discordant_baseline_only": 0,
@@ -2388,7 +2388,7 @@
       "difference": 0.5800000000000001,
       "bootstrap_ci95": [
         0.5525,
-        0.6083333333333334
+        0.6083333333333333
       ],
       "discordant_flm_only": 696,
       "discordant_baseline_only": 0,
@@ -2399,7 +2399,7 @@
       "metric": "1-FDAR",
       "difference": 0.4225,
       "bootstrap_ci95": [
-        0.39416666666666667,
+        0.395,
         0.45166666666666666
       ],
       "discordant_flm_only": 507,
@@ -2423,8 +2423,8 @@
       "metric": "ILA",
       "difference": 0.55,
       "bootstrap_ci95": [
-        0.5225,
-        0.5783333333333334
+        0.5216666666666666,
+        0.5775
       ],
       "discordant_flm_only": 660,
       "discordant_baseline_only": 0,
@@ -2435,7 +2435,7 @@
       "metric": "RCA_stage",
       "difference": 0.5,
       "bootstrap_ci95": [
-        0.47250000000000003,
+        0.4716666666666667,
         0.5291666666666667
       ],
       "discordant_flm_only": 600,
@@ -2447,8 +2447,8 @@
       "metric": "RCA_confirmed",
       "difference": 0.5,
       "bootstrap_ci95": [
-        0.47250000000000003,
-        0.5275000000000001
+        0.4716666666666667,
+        0.5283333333333333
       ],
       "discordant_flm_only": 600,
       "discordant_baseline_only": 0,
@@ -2791,7 +2791,7 @@
       "difference": 0.5800000000000001,
       "bootstrap_ci95": [
         0.5525,
-        0.6074999999999999
+        0.6083333333333333
       ],
       "discordant_flm_only": 696,
       "discordant_baseline_only": 0,
@@ -2803,7 +2803,7 @@
       "metric": "RCA_stage",
       "difference": 0.5783333333333334,
       "bootstrap_ci95": [
-        0.5366666666666666,
+        0.5383333333333333,
         0.6166666666666667
       ],
       "discordant_flm_only": 347,
@@ -2816,8 +2816,8 @@
       "metric": "RCA_stage",
       "difference": 0.5933333333333333,
       "bootstrap_ci95": [
-        0.5658333333333334,
-        0.6208333333333333
+        0.5658333333333333,
+        0.6216666666666667
       ],
       "discordant_flm_only": 712,
       "discordant_baseline_only": 0,
@@ -2829,7 +2829,7 @@
       "metric": "RCA_stage",
       "difference": 0.575,
       "bootstrap_ci95": [
-        0.5366666666666666,
+        0.535,
         0.615
       ],
       "discordant_flm_only": 345,
@@ -2868,7 +2868,7 @@
       "metric": "RCA_confirmed",
       "difference": 0.95,
       "bootstrap_ci95": [
-        0.9375,
+        0.9366666666666666,
         0.9616666666666667
       ],
       "discordant_flm_only": 1140,
@@ -2894,8 +2894,8 @@
       "metric": "RCA_confirmed",
       "difference": 0.5800000000000001,
       "bootstrap_ci95": [
-        0.5516666666666667,
-        0.6074999999999999
+        0.5508333333333333,
+        0.6075
       ],
       "discordant_flm_only": 696,
       "discordant_baseline_only": 0,
@@ -2908,7 +2908,7 @@
       "difference": 0.5783333333333334,
       "bootstrap_ci95": [
         0.5383333333333333,
-        0.6183333333333334
+        0.6183333333333333
       ],
       "discordant_flm_only": 347,
       "discordant_baseline_only": 0,
@@ -2920,7 +2920,7 @@
       "metric": "RCA_confirmed",
       "difference": 0.5933333333333333,
       "bootstrap_ci95": [
-        0.5658333333333334,
+        0.565,
         0.6208333333333333
       ],
       "discordant_flm_only": 712,
@@ -2933,7 +2933,7 @@
       "metric": "RCA_confirmed",
       "difference": 0.575,
       "bootstrap_ci95": [
-        0.5349999999999999,
+        0.535,
         0.615
       ],
       "discordant_flm_only": 345,
@@ -2972,8 +2972,8 @@
       "metric": "1-FDAR",
       "difference": 0.85,
       "bootstrap_ci95": [
-        0.8291666666666666,
-        0.8708333333333333
+        0.8291666666666667,
+        0.87
       ],
       "discordant_flm_only": 1020,
       "discordant_baseline_only": 0,
@@ -2986,7 +2986,7 @@
       "difference": 0.85,
       "bootstrap_ci95": [
         0.8216666666666667,
-        0.8766666666666667
+        0.8783333333333333
       ],
       "discordant_flm_only": 510,
       "discordant_baseline_only": 0,
@@ -2999,7 +2999,7 @@
       "difference": 0.4225,
       "bootstrap_ci95": [
         0.39416666666666667,
-        0.4508333333333333
+        0.45
       ],
       "discordant_flm_only": 507,
       "discordant_baseline_only": 0,
@@ -3011,8 +3011,8 @@
       "metric": "1-FDAR",
       "difference": 0.405,
       "bootstrap_ci95": [
-        0.3666666666666667,
-        0.44499999999999995
+        0.36666666666666664,
+        0.44333333333333336
       ],
       "discordant_flm_only": 243,
       "discordant_baseline_only": 0,
@@ -3024,7 +3024,7 @@
       "metric": "1-FDAR",
       "difference": 0.5641666666666667,
       "bootstrap_ci95": [
-        0.5358333333333334,
+        0.5366666666666666,
         0.5916666666666667
       ],
       "discordant_flm_only": 677,
@@ -3038,7 +3038,7 @@
       "difference": 0.5416666666666667,
       "bootstrap_ci95": [
         0.5016666666666667,
-        0.5783333333333334
+        0.5816666666666667
       ],
       "discordant_flm_only": 325,
       "discordant_baseline_only": 0,

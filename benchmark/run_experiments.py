@@ -12,7 +12,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 
-VERSION = "flm-benchmark-1.0.0"
+VERSION = "flm-benchmark-1.1.0"
 MASTER_SEED = 20260911
 BOOTSTRAP_SAMPLES = 5000
 
@@ -593,7 +593,6 @@ def evaluate_cases(cases: list[dict[str, object]]) -> tuple[list[dict[str, objec
         truth = case["ground_truth"]
         truth_fl_index = stage_index(str(truth["fl"]))
         truth_il = truth["il"]
-        truth_il_index = stage_index(str(truth_il)) if truth_il is not None else -1
         truth_rc_index = stage_index(str(truth["rc"]))
         for method in METHODS:
             prediction = predict(method, case)
@@ -604,14 +603,8 @@ def evaluate_cases(cases: list[dict[str, object]]) -> tuple[list[dict[str, objec
             rc_confirmed = int(prediction["rc"] == confirmed_rc)
             pred_index = stage_index(str(prediction["rc"]))
             downstream_stage = pred_index > truth_fl_index
-            violated_exclusion = (
-                truth_il is not None
-                and stage_index(str(truth_il)) < truth_il_index
-                and pred_index > stage_index(str(truth_il))
-            )
             incorrect_downstream = int(
-                (downstream_stage and not rc_correct)
-                or (violated_exclusion and not rc_correct)
+                downstream_stage and not rc_correct
             )
             row = {
                 "case_id": case["case_id"],
@@ -689,17 +682,20 @@ def paired_bootstrap_difference(
     size = len(method_values)
     observed = sum(method_values) / size - sum(baseline_values) / size
     rng = random.Random(rng_seed)
+    paired_differences = [method - baseline for method, baseline in zip(method_values, baseline_values)]
     differences = []
     for _ in range(samples):
-        sample_method = [method_values[rng.randrange(size)] for _ in range(size)]
-        sample_baseline = [baseline_values[rng.randrange(size)] for _ in range(size)]
-        differences.append(
-            sum(sample_method) / size - sum(sample_baseline) / size
-        )
+        differences.append(sum(rng.choices(paired_differences, k=size)) / size)
     differences.sort()
     lower_index = int(math.floor(0.025 * samples))
     upper_index = int(math.ceil(0.975 * samples)) - 1
     return observed, differences[lower_index], differences[upper_index]
+
+
+def format_p_value(value: float) -> str:
+    if value == 0.0:
+        return "<1e-300"
+    return f"{value:.4g}"
 
 
 def summarize(rows: list[dict[str, object]], vectors: dict[str, dict[str, list[int]]]) -> dict[str, object]:
@@ -899,7 +895,7 @@ def render_report(
         low, high = test["bootstrap_ci95"]
         lines.append(
             f"| `{test['baseline']}` | {test['metric']} | {test['difference']:+.3f} | "
-            f"[{low:+.3f}, {high:+.3f}] | {test['mcnemar_exact_p']:.4g} |"
+            f"[{low:+.3f}, {high:+.3f}] | {format_p_value(test['mcnemar_exact_p'])} |"
         )
 
     lines.extend(
@@ -933,7 +929,7 @@ def render_report(
         low, high = test["bootstrap_ci95"]
         lines.append(
             f"| `{test['split']}` | {test['metric']} | {test['difference']:+.3f} | "
-            f"[{low:+.3f}, {high:+.3f}] | {test['mcnemar_exact_p']:.4g} |"
+            f"[{low:+.3f}, {high:+.3f}] | {format_p_value(test['mcnemar_exact_p'])} |"
         )
 
     lines.extend(

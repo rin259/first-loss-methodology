@@ -6,6 +6,8 @@
 
 Version `v1.0.0` is archived at DOI [10.5281/zenodo.22704463](https://doi.org/10.5281/zenodo.22704463).
 
+The `v1.1.0` manuscript is currently a release candidate. Do not reuse the `v1.0.0` version DOI for it; create a new Zenodo version first, then update this file and `CITATION.cff`.
+
 ## arXiv
 
 An arXiv preprint under `cs.SE` is planned. Once assigned, add the arXiv ID here and update `CITATION.cff` with:

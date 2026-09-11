@@ -3,7 +3,7 @@
 Chen KuangYu ^1,2^  
 ^1^ Veridical Tech, Inc.  
 ^2^ Xi'an University of Science and Technology Hi-tech College  
-Corresponding author: Chen KuangYu <contact@veridical.tech>
+Corresponding author: Chen KuangYu <rin@rin.red>
 
 **Preprint v1.0.0.** AI assistants supported writing, code implementation, and experiment organization. The author designed the method, validated the experiments, and approved the final revision.
 

@@ -41,6 +41,14 @@ P3/P4 可被非局部因果反例证伪；遇到共享状态、并发副作用�
 
 每个 case 包含确定性 seed、语料、查询、流水线配置、trace、ground-truth 标注和预期观测。语料按 tenant、namespace、ACL、generation、valid-time 和 source authority 标注。
 
+除上述规则一致性 benchmark 外，`runtime_experiments.py` 必须执行三个不同实现，而不是只替换阶段名称：
+
+1. RAG：ranked retrieval、metadata enrichment、fallback、context cap 和 answer；
+2. ETL：parse、key mapping、dead-letter replay、join 和 window commit；
+3. Build：dependency resolution、cache、vendored fallback、link 和 test。
+
+每个实现覆盖 local invariant-first fault、direct loss、partial observability、noisy probes、nonlocal side effect 和 evidence reacquisition。partial case 必须输出 bounded interval；nonlocal case 必须降级为 cross-stage exception；reacquisition 必须开启新的 lineage segment。
+
 故障族包括：
 
 | 族                     | 注入点                            | 预期检查                              |
@@ -67,7 +75,7 @@ P3/P4 可被非局部因果反例证伪；遇到共享状态、并发副作用�
 1. **Final-symptom baseline**：把 failure 归因到最后一个观测失败或输出异常的组件。
 2. **Component-level RCA**：允许查看 trace，按组件错误计数选择最可疑组件，但不施加 First Loss 边界。
 3. **Existence-only provenance**：追踪 evidence 是否存在，但不检查语义不变量。
-4. **LLM-based RCA**：给模型相同 trace 和错误描述，不提供 FLM 归因规则；模型输出 First Loss、Invariant Loss 和 root cause。strong proxy 可能达到 1.000；论文不因此声称 FLM 优于真实或理想化 LLM，而强调 FLM 提供显式、可审计、与模型无关的归因规则。
+4. **LLM-based RCA**：给模型相同 trace 和错误描述，不提供 FLM 归因规则；模型输出 First Loss、Invariant Loss 和 root cause。真实模型实验固定 60 个分层 case、5 次重复、prompt、JSON schema、temperature 和 exact model ID。deterministic proxy 只能用于开发，不得作为真实模型证据。
 5. **FLM**：完整方法，包括 evidence survival funnel、invariant check、attribution boundary 和 confirmation protocol。
 
 LLM 基线必须固定模型版本、提示词、温度和上下文长度。若系统允许随机性，则每个 case 重复 5 次并报告多数投票与一致性。当前 synthetic run 只含 trace-only LLM proxy；strong proxy 得到 1.000，因此不声称 FLM 优于真实或理想化 LLM。
@@ -129,6 +137,9 @@ Reproducibility = identical attribution across repeated probes / |D|
 - 所有 case 的 seed、prompt、代码版本和数据哈希必须随结果发布。
 - Ground truth 由故障注入配置自动生成，实验者不得在看到 test trace 后修改标注。
 - 为避免探针信息泄漏，每轮探针只能消费前一阶段的 evidence 状态和不变量结果。
+- paired bootstrap 必须对两个方法使用同一组 resampled case indices；不得分别独立抽样。
+- 极小 McNemar exact p-value 若发生浮点下溢，应报告为数值上界（例如 `<1e-300`），不得写成 `0`。
+- 多基线比较属于次要分析；主结论优先报告 effect size 与 confidence interval。
 
 ## 有效性威胁
 
@@ -136,3 +147,5 @@ Reproducibility = identical attribution across repeated probes / |D|
 2. LLM 基线表现可能受提示词影响，因此发布提示词并进行提示词扰动测试。
 3. 部分真实系统无法记录中间状态；论文不声称 FLM 可在不可观测边界内保证定位。
 4. 多个 evidence 同时丢失时，First Loss 需按 evidence ID 展开，不能聚合成单一阶段后草率归因。
+5. evidence 在 fallback 或 side input 中重新出现时，presence 不再单调；必须按 lineage segment 报告 loss 与 reacquisition。
+6. 明示的 nonlocal side-effect 标记只验证 exception handling，不代表系统能够自动发现隐藏的非局部原因。
