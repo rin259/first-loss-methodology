@@ -1,5 +1,13 @@
 # Release notes
 
+## v1.1.1 manuscript revision
+
+- Adds acquisition, admission, assembly, and rendering as operational First Loss surfaces.
+- Distinguishes candidate-seat guarantees from filtering, ordering, and final-output guarantees.
+- Adds a redacted production investigation covering self-capture pollution, semantic-gate rejection, a merged retrieval leg that bypassed lane precedence, and incomplete enumeration.
+- Treats candidate-pool membership and source timestamps as part of the frozen replay context.
+- Keeps the archived `v1.1.0` DOI unchanged until a new Zenodo version is created.
+
 ## v1.1.0
 
 This release narrows the paper from a generality claim to evidence-boundary reasoning supported by controlled evaluations. The release is permanently archived at DOI [10.5281/zenodo.22709898](https://doi.org/10.5281/zenodo.22709898).

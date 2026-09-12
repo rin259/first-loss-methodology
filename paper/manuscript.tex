@@ -17,7 +17,7 @@
 Veridical Tech, Inc.\\
 Xi'an University of Science and Technology Hi-tech College\\
 \texttt{rin@rin.red}}
-\date{Preprint v1.1.0, September 2026}
+\date{Preprint revision v1.1.1, September 2026}
 
 \begin{document}
 \maketitle
@@ -25,7 +25,7 @@ Xi'an University of Science and Technology Hi-tech College\\
 \begin{abstract}
 Failures in multi-stage software systems often become visible after the evidence needed for a correct result has already disappeared or changed meaning. Debugging from the final symptom can therefore blame a component that never received the relevant evidence. First Loss Methodology (FLM) treats an execution as a sequence of evidence transformations. \emph{First Loss} marks the first boundary where evidence becomes unavailable to the next stage; \emph{Invariant Loss} marks the first observed violation of identity, order, scope, time, provenance, authority, or lifecycle. Neither is automatically the root cause, which still requires intervention.
 
-We formalize this distinction, limit the attribution rule to the observed lineage segment, and define bounded answers for missing observations, explicit exceptions for nonlocal effects, and segment-aware handling of evidence reacquisition. A controlled benchmark with 1,200 test cases and a 600-case replay window checks the internal behavior of the rules. Three separate executable reference runtimes for retrieval-augmented generation, ETL, and build dependency resolution add 360 cases with partial traces, noisy probes, nonlocal side effects, and reacquisition. FLM attains 0.981 safe-attribution accuracy in this second evaluation; removing independent replay lowers it to 0.972, while removing intervention reduces confirmed root-cause accuracy from 0.961 to zero. A 300-response GLM baseline reaches 0.920 overall attribution accuracy and 0.973 exact-path root-cause accuracy, but only 0.200 exact agreement across five repeated runs. These results establish reproducibility and boundary behavior in controlled systems. They do not establish production-wide generality.
+We formalize this distinction, limit the attribution rule to the observed lineage segment, and define bounded answers for missing observations, explicit exceptions for nonlocal effects, and segment-aware handling of evidence reacquisition. A controlled benchmark with 1,200 test cases and a 600-case replay window checks the internal behavior of the rules. Three separate executable reference runtimes for retrieval-augmented generation, ETL, and build dependency resolution add 360 cases with partial traces, noisy probes, nonlocal side effects, and reacquisition. FLM attains 0.981 safe-attribution accuracy in this second evaluation; removing independent replay lowers it to 0.972, while removing intervention reduces confirmed root-cause accuracy from 0.961 to zero. A 300-response GLM baseline reaches 0.920 overall attribution accuracy and 0.973 exact-path root-cause accuracy, but only 0.200 exact agreement across five repeated runs. Two production investigations illustrate rank loss and a compound acquisition--admission--assembly failure. These results establish reproducibility and boundary behavior in controlled systems. They do not establish production-wide generality.
 \end{abstract}
 
 \section{Introduction}
@@ -42,7 +42,7 @@ The method separates three locations that are easy to collapse into one:
 \end{itemize}
 This separation gives FLM its main rule: a stage cannot be the direct-path cause of losing evidence that never reached it. The rule is intentionally narrower than ``the downstream component is healthy.'' Shared state, callbacks, concurrency, and hidden protocols can still create nonlocal causes.
 
-This paper contributes (1) an evidence-lineage model with explicit loss and invariant boundaries; (2) rules for exact, bounded, nonlocal, and reacquired cases; (3) a confirmation protocol based on a frozen baseline and single-variable intervention; and (4) two reproducible evaluations, including three executable reference runtimes. The artifact is archived separately \cite{chen2026firstlossartifact}.
+This paper contributes (1) an evidence-lineage model with explicit loss and invariant boundaries; (2) rules for exact, bounded, nonlocal, and reacquired cases; (3) a confirmation protocol based on a frozen baseline and single-variable intervention; (4) two reproducible evaluations, including three executable reference runtimes; and (5) two production investigations that expose different loss surfaces. The artifact is archived separately \cite{chen2026firstlossartifact}.
 
 \section{Related work}
 
@@ -100,6 +100,12 @@ Let $I_{i,v}^{obs}(E)$ and $I_{i,v}^{exp}(E)$ be the observed and expected value
 \IL(E)=\min\{i : \exists v, I_{i,v}^{obs}(E)\neq I_{i,v}^{exp}(E)\}.
 \end{equation}
 An ordering violation can precede a cap that removes the item, so $\IL(E)<\FL(E)$. An expired item may remain present until the final output, in which case Invariant Loss exists without an earlier disappearance.
+
+\subsection{Operational loss surfaces}
+
+The same definition applies at several operational surfaces. \emph{Acquisition loss} means that required evidence never enters the candidate set. \emph{Admission loss} means that a retrieved candidate is rejected by a gate. \emph{Assembly loss} occurs when admitted evidence is omitted, reordered, or truncated while the final context is built. \emph{Rendering loss} means that the context reaches the answer stage but is reduced to a representation that cannot support the required response. These labels identify where to instrument the path; they do not replace the evidence predicate or turn a location into a confirmed cause.
+
+A policy also needs an end-to-end predicate. A lane rule may reserve a candidate seat yet fail after another retrieval leg is merged. We therefore distinguish seat, filtering, ordering, and final-output guarantees. The relevant invariant is the one promised at the consumer boundary, not merely at an intermediate list.
 
 \subsection{Attribution boundary and its limits}
 
@@ -206,11 +212,23 @@ Final schema adherence & 1.000 \\
 
 The model's exact-path RCA is slightly higher than FLM's 0.961 on this sample. FLM has the stronger overall controlled result because it explicitly returns bounded, exception, and reacquisition states, but the comparison is not a model leaderboard: the methods have different confirmation semantics, the sample is small, and the gateway's model build is not independently verifiable. The low five-run agreement is the clearest model result. A majority-vote analysis should be preregistered before it is used as a headline metric.
 
-\section{Production incident replay}
+\section{Production investigations}
+
+\subsection{Rank loss before a cap}
 
 The motivating incident occurred in the SPM-Polaris recall pipeline. Vector retrieval returned ranked evidence. Metadata enrichment preserved the records but not their order. A downstream cap then removed the target by position. The target never reached selection, gating, assembly, or the reader.
 
 The observed Invariant Loss was the metadata stage, and First Loss occurred at the cap. Preserving rank across metadata lookup, with the query, corpus, retrieval parameters, and cap fixed, removed the failure in another process and time window. The released replay supports a confirmed \emph{stage-level} cause at metadata enrichment. Because the public artifact omits the production query, corpus revision, code revision, and before/after payloads, the specific predicate remains a candidate rather than a publicly reproducible confirmed cause.
+
+\subsection{Compound loss in a memory-recall path}
+
+A later field investigation began with a fast recall mode that returned short field-like atoms while a deeper mode materialized source spans. Repeated queries initially suggested one defect: recently captured debugging text, including the query and a wrong answer, could outrank committed memory. The investigation did not stop there. Frozen-query replays showed that the same request could fail at three different boundaries as the candidate pool changed.
+
+First, the committed item could be crowded out before selection, an acquisition loss. Second, an intact atom could enter the candidate set and then fail a semantic-support gate, an admission loss. Third, a span retrieval leg was merged after lane ordering and could therefore bypass the promised precedence, an assembly-level contract loss. Separate enumeration questions exposed a fourth boundary: relevant evidence reached the reader, but the selector did not collect a complete set of scattered mentions. Treating all four outcomes as ``recall failure'' would have assigned one symptom to unrelated mechanisms.
+
+The causal checks were staged. New diagnostics first exposed gate decisions and failure kinds. A paired lane-policy probe then held the tenant, query, and two candidate sources fixed while changing only the policy. Applying the policy after candidate and span evidence were merged restored the final ordering guarantee. A separate intervention changed semantic admission, and capture governance plus cross-source deduplication removed the query echo without suppressing committed evidence. The fast path still retained a documented quality boundary; not every weak result was reclassified as a bug.
+
+This case also shows why replay must freeze more than code. Candidate-pool membership, source timestamps, capture state, retrieval depth, and evidence limits are part of the causal context. Without them, a changed result across two runs is evidence of drift, not evidence that the answer stage is nondeterministic. The public description is deliberately redacted and supports stage-level attribution only.
 
 \section{Threats to validity}
 
@@ -218,7 +236,7 @@ The observed Invariant Loss was the metadata stage, and First Loss occurred at t
 
 \textbf{Internal validity.} Faults and probes are controlled, and the same authors designed the method and evaluation. The final real-LLM prompt was frozen after two compatibility pilots, not before any contact with the endpoint. Those pilots are excluded and documented, but prompt adaptation can bias the result. The gateway's provider-reported model ID is not a versioned model snapshot. A preregistered external evaluation would reduce both risks.
 
-\textbf{External validity.} Three executable runtimes are more informative than seven renamed instances, but they are small and deterministic. The study does not cover production concurrency, organizational handoffs, or unknown ground truth. One production replay shows plausibility, not prevalence.
+\textbf{External validity.} Three executable runtimes are more informative than seven renamed instances, but they are small and deterministic. The study does not cover production concurrency, organizational handoffs, or unknown ground truth. Two production investigations show plausibility, not prevalence. The second is redacted, was conducted by the system's developers, and is not independently reproducible from the public artifact.
 
 \textbf{Conclusion validity.} Confidence intervals and McNemar tests describe repeated benchmark cases, not a random sample of all incidents. Multiple baseline comparisons should be treated as secondary. Very small exact $p$-values are reported as bounds rather than numerical zero.
 
@@ -226,7 +244,7 @@ The observed Invariant Loss was the metadata stage, and First Loss occurred at t
 
 FLM is most useful when evidence has a stable or recoverable identity, stages are ordered along a relevant path, invariants can be checked, and at least a few boundaries can be observed or replayed. When those conditions fail, the honest output is an interval or an exception. That is not a failed diagnosis. It is the boundary of what the trace supports.
 
-The method also changes the order of work. Engineers first ask whether the evidence reached a stage, then whether it still meant the same thing, and only then whether that stage behaved correctly. This ordering does not make causal reasoning automatic, but it stops a common mistake: investigating a component as the cause of losing input it never received.
+The method also changes the order of work. Engineers first ask whether the evidence reached a stage, then whether it still meant the same thing, and only then whether that stage behaved correctly. Policies are checked at the final consumer boundary after all retrieval legs are merged. This ordering does not make causal reasoning automatic, but it stops a common mistake: investigating a component as the cause of losing input it never received.
 
 \section{Conclusion}
 

@@ -4,12 +4,13 @@
 
 ## Cite
 
-See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.0` preprint and reproducibility artifact are archived at DOI [10.5281/zenodo.22709898](https://doi.org/10.5281/zenodo.22709898). An arXiv identifier will be added after submission and moderation.
+See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.0` preprint and reproducibility artifact are archived at DOI [10.5281/zenodo.22709898](https://doi.org/10.5281/zenodo.22709898). The repository also contains a `v1.1.1` manuscript revision with a second, redacted production investigation. An arXiv identifier will be added after submission and moderation.
 
 这个仓库把 FLM 从工程调试笔记提升为可复现的软件工程方法研究：
 
 - `paper/manuscript.tex`：英文投稿稿，收紧理论边界并加入正式相关工作、异构运行时评估和有效性威胁。
-- `output/pdf/first-loss-v1.1.0-preprint.pdf`：编译并完成视觉检查的正式归档预印本。
+- `output/pdf/first-loss-v1.1.0-preprint.pdf`：已归档的 `v1.1.0` 预印本。
+- `output/pdf/first-loss-v1.1.1-preprint.pdf`：加入多边界生产案例的当前投稿稿。
 - `paper/main.md`：已归档的 `v1.0.0` 中文/英文混合原稿。
 - `experiments/PROTOCOL.md`：跨领域可重复实验协议，包含适用性条件、领域适配、指标和统计要求。
 - `benchmark/run_experiments.py`：冻结 seed 的受控 replay benchmark。
@@ -18,6 +19,7 @@ See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.0` prep
 - `benchmark/conservation_schema.py`：evidence-conservation 数据契约检查。
 - `benchmark/results/REPORT.md`：当前 seeded run 的指标与统计检验。
 - `benchmark/INCIDENT_REPLAY.md`：真实 vector-arm ordering incident 的结构化回放。
+- `experiments/PRODUCTION_CASE_STUDY.md`：第二个生产归因路径的脱敏证据摘要。
 - `AUTHORS.md`：作者、 affiliation、贡献和 AI-assistance 声明。
 - `CITATION.cff` / `citation.bib`：引用元数据。
 - `.github/workflows/ci.yml`：schema 检查与 smoke-test reproduction。
