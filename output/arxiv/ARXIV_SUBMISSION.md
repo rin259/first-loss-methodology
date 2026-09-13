@@ -4,8 +4,8 @@
 - Author: KuangYu Chen
 - Primary category: cs.SE (Software Engineering)
 - License: CC BY 4.0
-- Comments: 8 pages, 3 tables; accompanying v1.1.0 reproducibility artifact at https://doi.org/10.5281/zenodo.22709898
-- DOI: 10.5281/zenodo.22709898
+- Comments: 8 pages, 3 tables; accompanying v1.1.1 reproducibility artifact at https://doi.org/10.5281/zenodo.22734716
+- DOI: 10.5281/zenodo.22734716
 - Corresponding email: rin@rin.red
 - Additional affiliation contact: contact@veridicaltech.com
 

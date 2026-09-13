@@ -2,11 +2,13 @@
 
 ## v1.1.1 manuscript revision
 
+This release is permanently archived at DOI [10.5281/zenodo.22734716](https://doi.org/10.5281/zenodo.22734716).
+
 - Adds acquisition, admission, assembly, and rendering as operational First Loss surfaces.
 - Distinguishes candidate-seat guarantees from filtering, ordering, and final-output guarantees.
 - Adds a redacted production investigation covering self-capture pollution, semantic-gate rejection, a merged retrieval leg that bypassed lane precedence, and incomplete enumeration.
 - Treats candidate-pool membership and source timestamps as part of the frozen replay context.
-- Keeps the archived `v1.1.0` DOI unchanged until a new Zenodo version is created.
+- Preserves the archived `v1.1.0` DOI as the previous version in the Zenodo version chain.
 
 ## v1.1.0
 
