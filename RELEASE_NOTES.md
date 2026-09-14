@@ -2,7 +2,7 @@
 
 ## v1.1.2 manuscript revision
 
-This release is archived in the Zenodo version chain under the concept DOI [10.5281/zenodo.22704462](https://doi.org/10.5281/zenodo.22704462).
+This release is permanently archived at DOI [10.5281/zenodo.22734754](https://doi.org/10.5281/zenodo.22734754).
 
 ### Paper
 
