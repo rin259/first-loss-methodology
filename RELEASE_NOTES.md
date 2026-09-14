@@ -1,5 +1,31 @@
 # Release notes
 
+## v1.1.2 manuscript revision
+
+This release is archived in the Zenodo version chain under the concept DOI [10.5281/zenodo.22704462](https://doi.org/10.5281/zenodo.22704462).
+
+### Paper
+
+- Promotes the controlled-benchmark ablations to the main text and moves the full five-method comparison to an appendix.
+- Restates the method with segment-local definitions covering acquisition boundaries, bounded intervals, nonlocal exceptions, and reacquisition; adds formal propositions (existence boundary, provenance recoverability, attribution bound, invariant priority) and an attribution algorithm.
+- Adds enumeration loss as an operational surface and a surface-to-fault-family mapping table; the second production case now aligns with the taxonomy.
+- Adds a motivating figure and a loss-surface figure.
+- Adds related work on algorithmic debugging, delta debugging, database causality, and LLM-based RCA.
+
+### Evaluation
+
+- Reframes the executable-runtime evaluation as 18 fault configurations replayed 20 times each (360 runs) and reports per-profile safe attribution.
+- Adds exact McNemar tests and configuration-clustered bootstrap intervals; the replay ablation corrects 7 runs and reverses 4, a net effect that is not statistically separable ($p=0.549$).
+- Adds an FLM error taxonomy: all exact-attribution errors are noisy-probe runs claiming a wrong exact stage.
+- Adds Wilson intervals, denominators, temperature, and stratification detail to the real-LLM baseline; reports the Invariant Loss hallucination pattern and the FLM/LLM overlap on the 60 shared cases.
+- Maps the registered hypotheses H1--H4 to the evaluations that can decide them.
+
+### Artifacts
+
+- Preprint PDF: `first-loss-v1.1.2-preprint.pdf`
+- arXiv-ready source bundle: `first-loss-v1.1.2-arxiv-source.tar.gz`
+- Adds `benchmark/analyze_results.py`, which regenerates every reported interval and test from the frozen result files into per-benchmark `ANALYSIS.md` reports.
+
 ## v1.1.1 manuscript revision
 
 This release is permanently archived at DOI [10.5281/zenodo.22734716](https://doi.org/10.5281/zenodo.22734716).

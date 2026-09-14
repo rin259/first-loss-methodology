@@ -4,18 +4,19 @@
 
 ## Cite
 
-See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.1` preprint and reproducibility artifact are archived at DOI [10.5281/zenodo.22734716](https://doi.org/10.5281/zenodo.22734716). This revision includes a second, redacted production investigation. An arXiv identifier will be added after submission and moderation.
+See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.2` preprint and reproducibility artifact are archived in the Zenodo version chain under concept DOI [10.5281/zenodo.22704462](https://doi.org/10.5281/zenodo.22704462). This revision reports the review-driven statistical and formalization revision of the evaluation. An arXiv identifier will be added after submission and moderation.
 
 这个仓库把 FLM 从工程调试笔记提升为可复现的软件工程方法研究：
 
 - `paper/manuscript.tex`：英文投稿稿，收紧理论边界并加入正式相关工作、异构运行时评估和有效性威胁。
+- `output/pdf/first-loss-v1.1.2-preprint.pdf`：当前 `v1.1.2` 投稿稿。
 - `output/pdf/first-loss-v1.1.0-preprint.pdf`：已归档的 `v1.1.0` 预印本。
-- `output/pdf/first-loss-v1.1.1-preprint.pdf`：已归档并加入多边界生产案例的当前投稿稿。
 - `paper/main.md`：已归档的 `v1.0.0` 中文/英文混合原稿。
 - `experiments/PROTOCOL.md`：跨领域可重复实验协议，包含适用性条件、领域适配、指标和统计要求。
 - `benchmark/run_experiments.py`：冻结 seed 的受控 replay benchmark。
 - `benchmark/runtime_experiments.py`：RAG、ETL 和 build 三个独立可执行参考运行时。
 - `benchmark/run_llm_baseline.py`：真实 Responses API 基线，包含冻结 prompt、结构化输出、重复运行和断点续跑。
+- `benchmark/analyze_results.py`：对已冻结结果做 post-hoc 分析（per-profile 拆解、clustered bootstrap、McNemar、Wilson CI、错误 taxonomy、LLM/FLM 重叠），输出各 benchmark 目录下的 `ANALYSIS.md`。
 - `benchmark/conservation_schema.py`：evidence-conservation 数据契约检查。
 - `benchmark/results/REPORT.md`：当前 seeded run 的指标与统计检验。
 - `benchmark/INCIDENT_REPLAY.md`：真实 vector-arm ordering incident 的结构化回放。
@@ -35,6 +36,7 @@ python3 benchmark/run_experiments.py --output-dir benchmark/results --samples 50
 python3 benchmark/conservation_schema.py benchmark/results/cases.jsonl --split test
 python3 benchmark/conservation_schema.py benchmark/results/cases.jsonl --split replay
 python3 benchmark/runtime_experiments.py --output-dir benchmark/runtime_results --repetitions 20
+python3 benchmark/analyze_results.py
 python3 -m unittest discover -s benchmark -p 'test_*.py'
 ```
 
