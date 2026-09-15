@@ -41,6 +41,15 @@ Per-run metrics use all 300 runs; exact-path metrics are gated on eligible-exact
 | Overclaim rate (denominator: risky runs = 150) | 0.047 [0.023, 0.093] |
 | Schema adherence (n=300) | 1.000 [0.987, 1.000] |
 
+## Repeat content (temperature 0)
+
+Whether repeated runs are byte-identical at the raw level, not only at
+the parsed answer level.
+
+- Cases with five distinct raw outputs: 60/60
+- Distribution of distinct raw outputs per case: 5 distinct: 60
+- Cases where reported reasoning tokens vary across repeats: 60/60
+
 ## Repeat agreement
 
 - Cases with five identical answers: 12/60 (0.200)

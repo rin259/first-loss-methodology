@@ -371,6 +371,100 @@ def runtime_analysis(runtime_dir: Path) -> str:
     return "\n".join(lines)
 
 
+def synthetic_analysis(results_dir: Path) -> str:
+    """Per-family breakdown and ablation significance for the controlled run."""
+    metrics = load_metrics(results_dir / "case_metrics.csv")
+    test = [row for row in metrics if row["split"] == "test"]
+    n_methods = len({row["method"] for row in test})
+    n_cases = len(test) // n_methods if n_methods else 0
+
+    by_family: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for row in test:
+        by_family[row["family"]].append(row)
+
+    lines: list[str] = [
+        "# Controlled benchmark: post-hoc analysis (test split, n="
+        f"{n_cases} cases per method)",
+        "",
+        "## FLM accuracy by fault family",
+        "",
+        "| Family | n | FLM RCA | Component RCA | Existence-only RCA |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    flm_all_exact = True
+    for family in sorted(by_family):
+        rows = by_family[family]
+        n = len({row["case_id"] for row in rows})
+
+        def rate(method: str, column: str) -> str:
+            sel = [row for row in rows if row["method"] == method]
+            return f"{sum(int(row[column]) for row in sel) / len(sel):.3f}" if sel else "--"
+
+        flm_rca = rate("flm_full", "rc_correct")
+        if flm_rca != "1.000":
+            flm_all_exact = False
+        lines.append(
+            f"| {family} | {n} | {flm_rca} "
+            f"| {rate('component_level_rca', 'rc_correct')} "
+            f"| {rate('existence_only_provenance', 'rc_correct')} |"
+        )
+    lines += [
+        "",
+        f"FLM is exact on every family: {flm_all_exact}. The informative"
+        " columns are the baselines, which lose accuracy precisely on the"
+        " families whose failure semantics depend on the loss boundary.",
+        "",
+    ]
+
+    # ---- ablation significance -----------------------------------------
+    full = {row["case_id"]: row for row in test if row["method"] == "flm_full"}
+    lines += [
+        "## Ablation significance (exact McNemar vs FLM full, test split)",
+        "",
+        "| Variant | RCA confirmed | 1-FDAR | p (confirmed) | p (1-FDAR) |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    variants = [
+        "flm_no_first_loss_rule",
+        "flm_no_invariant_checking",
+        "flm_no_upstream_exclusion",
+        "flm_no_minimal_probe",
+        "flm_no_intervention",
+        "flm_no_independent_replay",
+        "flm_blind_candidate_selection",
+    ]
+    for variant in variants:
+        rows = {row["case_id"]: row for row in test if row["method"] == variant}
+        table: list[str] = []
+        for column in ("rc_confirmed", "incorrect_downstream"):
+            b = sum(
+                1
+                for case_id, row in rows.items()
+                if int(row[column]) == 1 and int(full[case_id][column]) == 0
+            )
+            c = sum(
+                1
+                for case_id, row in rows.items()
+                if int(row[column]) == 0 and int(full[case_id][column]) == 1
+            )
+            table.append(f"{fmt_p(mcnemar_exact(b, c))} ({b}/{c})")
+        confirmed = sum(int(row["rc_confirmed"]) for row in rows.values()) / len(rows)
+        one_fdar = 1 - sum(int(row["incorrect_downstream"]) for row in rows.values()) / len(rows)
+        lines.append(
+            f"| {variant} | {confirmed:.3f} | {one_fdar:.3f} "
+            f"| {table[0]} | {table[1]} |"
+        )
+    lines += [
+        "",
+        "Discordant pairs are reported as (variant worse/full better). The two",
+        "confirmation ablations (no intervention, no replay) are identical to",
+        "the full method on localization metrics by design and differ only in",
+        "claim strength.",
+        "",
+    ]
+    return "\n".join(lines)
+
+
 def llm_analysis(llm_dir: Path, runtime_dir: Path) -> str:
     responses = load_jsonl(llm_dir / "responses.jsonl")
     cases = {
@@ -485,6 +579,35 @@ def llm_analysis(llm_dir: Path, runtime_dir: Path) -> str:
 
     n_cases = len(case_ids)
     all_agree = agreement_counts[1]
+
+    distinct_raw: Counter[int] = Counter()
+    reasoning_spread = 0
+    for case_id in case_ids:
+        raws = {run["raw_output"] for run in runs_by_case[case_id]}
+        distinct_raw[len(raws)] += 1
+        tokens = [
+            (run.get("usage") or {}).get("output_tokens_details", {}).get("reasoning_tokens")
+            for run in runs_by_case[case_id]
+        ]
+        tokens = [t for t in tokens if isinstance(t, int)]
+        if tokens and len(set(tokens)) > 1:
+            reasoning_spread += 1
+
+    lines += [
+        "## Repeat content (temperature 0)",
+        "",
+        "Whether repeated runs are byte-identical at the raw level, not only at",
+        "the parsed answer level.",
+        "",
+        "- Cases with five distinct raw outputs: "
+        f"{distinct_raw[5]}/{n_cases}",
+        "- Distribution of distinct raw outputs per case: "
+        + ", ".join(f"{k} distinct: {v}" for k, v in sorted(distinct_raw.items())),
+        f"- Cases where reported reasoning tokens vary across repeats: "
+        f"{reasoning_spread}/{n_cases}",
+        "",
+    ]
+
     lines += [
         "## Repeat agreement",
         "",
@@ -605,12 +728,16 @@ def main() -> None:
     args = parser.parse_args()
     root = args.root
 
+    synthetic_report = synthetic_analysis(root / "results")
+    (root / "results" / "ANALYSIS.md").write_text(synthetic_report, encoding="utf-8")
+
     runtime_report = runtime_analysis(root / "runtime_results")
     (root / "runtime_results" / "ANALYSIS.md").write_text(runtime_report, encoding="utf-8")
 
     llm_report = llm_analysis(root / "llm_results", root / "runtime_results")
     (root / "llm_results" / "ANALYSIS.md").write_text(llm_report, encoding="utf-8")
 
+    print("wrote benchmark/results/ANALYSIS.md")
     print("wrote benchmark/runtime_results/ANALYSIS.md")
     print("wrote benchmark/llm_results/ANALYSIS.md")
 

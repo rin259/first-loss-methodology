@@ -25,7 +25,7 @@
 Veridical Tech, Inc.\\
 Xi'an University of Science and Technology Hi-tech College\\
 \texttt{rin@rin.red}}
-\date{Preprint revision v1.1.2, September 2026}
+\date{Preprint revision v1.1.3, September 2026}
 
 \begin{document}
 \maketitle
@@ -33,7 +33,7 @@ Xi'an University of Science and Technology Hi-tech College\\
 \begin{abstract}
 Failures in multi-stage software systems often become visible after the evidence needed for a correct result has already disappeared or changed meaning. Debugging from the final symptom can therefore blame a component that never received the relevant evidence. First Loss Methodology (FLM) treats an execution as a sequence of evidence transformations. \emph{First Loss} marks the first boundary where evidence becomes unavailable to the next stage; \emph{Invariant Loss} marks the first observed violation of identity, order, scope, time, provenance, authority, or lifecycle. Neither is automatically the root cause, which still requires intervention.
 
-We formalize this distinction with segment-local definitions that cover acquisition boundaries, bounded intervals, nonlocal exceptions, and evidence reacquisition, and we state the attribution rule as falsifiable propositions. A controlled benchmark with 1,200 test cases and a 600-case replay window checks the internal behavior of the rules: removing the First Loss rule or the attribution boundary drops root-cause accuracy from 1.000 to 0.050. Three executable reference runtimes for retrieval-augmented generation, ETL, and build dependency resolution are evaluated under six stress profiles. Eighteen fault configurations replayed twenty times each yield 360 runs with 0.981 safe-attribution accuracy. Every exact-attribution error occurs under probe noise, where the method claims a wrong exact stage instead of a bounded interval; five-probe replay corrects seven such runs but reverses four correct ones, a net effect that is not statistically separable (exact McNemar $p=0.549$). A 300-response GLM baseline reaches 0.920 overall attribution accuracy, yet only 12 of 60 cases receive five identical answers even at temperature zero; on the shared cases the model matches FLM only when at least one of its five repeats is accepted. Two production investigations illustrate rank loss and a compound acquisition--admission--assembly--enumeration failure. These results establish reproducibility and boundary behavior in controlled systems. They do not establish production-wide generality.
+We formalize this distinction with segment-local definitions that cover acquisition boundaries, bounded intervals, nonlocal exceptions, and evidence reacquisition, and we state the attribution rule as falsifiable propositions. A controlled benchmark with 1,200 test cases and a 600-case replay window checks the internal behavior of the rules: removing the First Loss rule or the attribution boundary drops root-cause accuracy from 1.000 to 0.050. Three executable reference runtimes for retrieval-augmented generation, ETL, and build dependency resolution are evaluated under six stress profiles. Eighteen fault configurations replayed twenty times each yield 360 runs with 0.981 safe-attribution accuracy. Every exact-attribution error occurs under probe noise, where the method claims a wrong exact stage instead of a bounded interval; five-probe replay corrects seven such runs but reverses four correct ones, a net effect that is not statistically separable (exact McNemar $p=0.549$). A 300-response GLM baseline reaches 0.920 overall attribution accuracy, yet only 12 of 60 cases receive five identical answers even at temperature zero; on the shared cases the model matches FLM only when at least one of its five repeats is accepted. Two production investigations illustrate rank loss and a compound acquisition--admission--assembly--enumeration failure, and a no-ground-truth encoding of five public postmortems (2017--2022) shows the same rules yielding well-formed candidate sets from narrative evidence alone. These results establish reproducibility and boundary behavior in controlled systems. They do not establish production-wide generality.
 \end{abstract}
 
 \section{Introduction}
@@ -80,7 +80,7 @@ The method separates three locations that are easy to collapse into one:
 \end{itemize}
 This separation gives FLM its main rule: a stage cannot be the direct-path cause of losing evidence that never reached it. The rule is intentionally narrower than ``the downstream component is healthy.'' Shared state, callbacks, concurrency, and hidden protocols can still create nonlocal causes.
 
-This paper contributes (1) an evidence-lineage model with explicit loss and invariant boundaries, stated as falsifiable propositions; (2) rules for exact, bounded, nonlocal, and reacquired cases; (3) a confirmation protocol based on a frozen baseline and single-variable intervention; (4) two reproducible evaluations whose component-necessity ablations are reported in the main text, including three executable reference runtimes; and (5) two production investigations that expose different loss surfaces. The artifact is archived separately \cite{chen2026firstlossartifact}.
+This paper contributes (1) an evidence-lineage model with explicit loss and invariant boundaries, stated as falsifiable propositions; (2) rules for exact, bounded, nonlocal, and reacquired cases; (3) a confirmation protocol based on a frozen baseline and single-variable intervention; (4) two reproducible evaluations whose component-necessity ablations are reported in the main text, including three executable reference runtimes; and (5) two production investigations that expose different loss surfaces plus a no-ground-truth demonstration on five public postmortems. The artifact is archived separately \cite{chen2026firstlossartifact}.
 
 \section{Related work}
 
@@ -135,6 +135,28 @@ Consumability matters. A byte string that survives storage but cannot be decoded
 An \emph{observed segment} of $E$ is a maximal interval of stages $S_a,\ldots,S_b$ such that $\Omega$ observes $P_a,\ldots,P_b$ (the symbol ? occurs nowhere inside the interval) and either $a=1$ or $P_{a-1}\ne$~?. A segment boundary is any transition between two segments or between a segment and an unobserved boundary.
 \end{definition}
 
+Table~\ref{tab:notation} collects the notation used throughout the paper.
+
+\begin{table}[t]
+\centering
+\caption{Notation.}
+\label{tab:notation}
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$E=(id,c,m,p,a,l)$ & evidence item: identity, content, metadata, provenance, authority, lifecycle \\
+$P_i(E)\in\{1,0,?\}$ & consumability of $E$ at boundary $i$; ? = unobserved \\
+$\sigma$ & one observed segment of $E$ \\
+$\FL_\sigma(E)$ & First Loss boundary index on $\sigma$ (Eq.~\eqref{eq:fl}) \\
+$\IL(E)$ & Invariant Loss stage (Eq.~\eqref{eq:il}) \\
+$I^{obs}_{i,v}$, $I^{exp}_{i,v}$ & observed vs.\ contracted value of invariant $v$ at stage $i$ \\
+$(S_i,S_j]$ & bounded attribution interval (Definition~\ref{def:bounded}) \\
+FDAR & False Downstream Attribution Rate; we report $1-\mathrm{FDAR}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 Invariant checks require a specification source. For every invariant $v$ checked at stage $i$, the expected value $I_{i,v}^{exp}(E)$ must come from a written contract -- a schema, a policy file, or a documented stage guarantee -- that is frozen before the trace is inspected. Expected values that are written after seeing the failure would make Invariant Loss unfalsifiable, so the confirmation protocol in Section~\ref{sec:confirmation} records the contract revision alongside the trace.
 
 \subsection{First Loss and Invariant Loss}
@@ -154,6 +176,8 @@ Let $I_{i,v}^{obs}(E)$ and $I_{i,v}^{exp}(E)$ be the observed and contracted val
 \label{eq:il}
 \end{equation}
 An ordering violation can precede a cap that removes the item, so $\IL(E)<\FL(E)$. An expired item may remain present until the final output, in which case Invariant Loss exists without an earlier disappearance. Invariant Loss is a stage-level observation; it does not by itself name the predicate, configuration, or code defect that caused the violation.
+
+\emph{Aggregation rule.} When one failure loses several evidence items, First Loss is computed per item identity. The report enumerates the per-item losses; the attribution boundary is the earliest loss across items, and the method must not collapse distinct per-item losses into a single stage-level claim before attribution. Collapsing first would let one stage absorb blame for mechanisms that begin in different stages.
 
 \subsection{Operational loss surfaces}
 \label{sec:surfaces}
@@ -280,29 +304,27 @@ We ask four questions: whether FLM locates evidence loss, whether it separates s
 
 The first benchmark freezes 1,200 test cases and 600 cases in a separate seed window. It covers 16 single-fault and four compound-fault families over one nine-stage abstract pipeline. Ground truth is generated from the injection specification before any method runs. This benchmark checks rule implementation and reproducibility, not domain generality, and its headline 1.000 scores should be read as an implementation check: any method that receives the complete trace and implements the same ground-truth vocabulary will match it. Appendix~\ref{app:synthetic} reports the full five-method comparison, in which a deterministic trace-pattern baseline matches FLM exactly, as expected.
 
-The informative result of this benchmark is the ablation in Table~\ref{tab:ablation}: every ablated rule is necessary for at least one metric. Removing the First Loss rule or the upstream exclusion collapses root-cause accuracy from 1.000 to 0.050, which is the quantified form of H4 and confirms H3: without the attribution boundary, the method blames downstream components exactly as often as the final-symptom baseline. Removing invariant checking drops Invariant Loss accuracy to 0.450, the level of an existence-only tracker (H2). Removing the minimal-probe discipline halves confirmed accuracy. The two confirmation ablations (no intervention, no replay) leave localization untouched -- these rules change the \emph{strength} of the claim, not its position, which is why the executable runtimes measure them separately.
+The informative result of this benchmark is the ablation in Table~\ref{tab:ablation}: every ablated rule is necessary for at least one metric. Removing the First Loss rule or the upstream exclusion collapses root-cause accuracy from 1.000 to 0.050, which is the quantified form of H4 and confirms H3: without the attribution boundary, the method blames downstream components exactly as often as the final-symptom baseline. Removing invariant checking drops Invariant Loss accuracy to 0.450, the level of an existence-only tracker (H2). Removing the minimal-probe discipline halves confirmed accuracy. Each degradation is significant on confirmed root-cause accuracy (exact McNemar against the full method, rightmost column). The two confirmation ablations (no intervention, no replay) leave localization untouched -- these rules change the \emph{strength} of the claim, not its position, which is why the executable runtimes measure them separately. The False Downstream Attribution Rate (FDAR) counts cases attributed downstream of the loss boundary and outside the acceptable root-cause set; we report $1-\mathrm{FDAR}$, and the per-family breakdown is in Appendix~\ref{app:families}.
 
 \begin{table}[t]
 \centering
-\caption{Controlled-benchmark ablations, 1,200 test cases. Every ablated rule is necessary for at least one metric.}
+\caption{Controlled-benchmark ablations, 1,200 test cases. Every ablated rule is necessary for at least one metric; the last column is the exact McNemar $p$ against the full method on confirmed root-cause accuracy.}
 \label{tab:ablation}
-\begin{tabular}{lrrr}
+\begin{tabular}{lrrrl}
 \toprule
-Variant & RCA stage & RCA confirmed & 1-FDAR \\
+Variant & RCA stage & RCA confirmed & $1-\mathrm{FDAR}$ & $p$ vs.\ full \\
 \midrule
-FLM, full & 1.000 & 1.000 & 1.000 \\
-\quad $-$ First Loss rule & .050 & .050 & .150 \\
-\quad $-$ invariant checking & .500 & .500 & 1.000 \\
-\quad $-$ upstream exclusion & .050 & .050 & .150 \\
-\quad $-$ minimal probe & .432 & .432 & .644 \\
-\quad $-$ intervention & 1.000 & 1.000 & 1.000 \\
-\quad $-$ independent replay & 1.000 & 1.000 & 1.000 \\
-\quad blind candidate selection & .987 & .987 & 1.000 \\
+FLM, full & 1.000 & 1.000 & 1.000 & \NA \\
+\quad $-$ First Loss rule & .050 & .050 & .150 & $<10^{-300}$ \\
+\quad $-$ invariant checking & .500 & .500 & 1.000 & $4.8\cdot10^{-181}$ \\
+\quad $-$ upstream exclusion & .050 & .050 & .150 & $<10^{-300}$ \\
+\quad $-$ minimal probe & .432 & .432 & .644 & $1.0\cdot10^{-205}$ \\
+\quad $-$ intervention & 1.000 & 1.000 & 1.000 & $1$ \\
+\quad $-$ independent replay & 1.000 & 1.000 & 1.000 & $1$ \\
+\quad blind candidate selection & .987 & .987 & 1.000 & $3.1\cdot10^{-5}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-The published run is exactly reproducible. We also corrected the bootstrap implementation in v1.1.0 so paired comparisons resample shared case indices rather than drawing each method independently. Point estimates are unchanged; confidence intervals are regenerated from the corrected procedure.
 
 \subsection{Executable heterogeneous runtimes}
 \label{sec:runtimes}
@@ -403,7 +425,7 @@ Final schema adherence & 300 & 1.000 [.987, 1.000] \\
 \end{tabular}
 \end{table}
 
-Three findings deserve emphasis. First, Invariant Loss is the model's weak boundary: all 28 IL errors among the 150 eligible runs are hallucinations on direct-loss cases where no invariant is violated -- the model reports an IL stage in 19 of these runs (for example, placing the invariant loss at \emph{link} or \emph{join}, the same stage where evidence disappears). The model conflates disappearance with semantic corruption, which is precisely the distinction FLM's two definitions separate. Second, exact-path RCA (.973 [.933, .990]) is statistically indistinguishable from FLM's .961 [.922, .981] on the eligible runs; the apparent difference is within noise and the sample is small. Third, at temperature $0.0$ only 12 of 60 cases receive five identical answers (per-case distribution: 12 cases with one distinct answer, 25 with two, 18 with three, 5 with four). Provider-side nondeterminism, not sampling temperature, dominates the variance. The majority-vote root-cause accuracy over the five repeats is .817, but because this analysis was not preregistered we report it as exploratory rather than as a headline metric; a preregistered self-consistency protocol is required before voting can serve as an attribution rule.
+Three findings deserve emphasis. First, Invariant Loss is the model's weak boundary: all 28 IL errors among the 150 eligible runs are hallucinations on direct-loss cases where no invariant is violated -- the model reports an IL stage in 19 of these runs (for example, placing the invariant loss at \emph{link} or \emph{join}, the same stage where evidence disappears). The model conflates disappearance with semantic corruption, which is precisely the distinction FLM's two definitions separate. Second, exact-path RCA (.973 [.933, .990]) is statistically indistinguishable from FLM's .961 [.922, .981] on the eligible runs; the apparent difference is within noise and the sample is small. Third, at temperature $0.0$ only 12 of 60 cases receive five identical answers (per-case distribution: 12 cases with one distinct answer, 25 with two, 18 with three, 5 with four). The nondeterminism is not client-side sampling: raw outputs are byte-distinct across all five repeats in 60 of 60 cases, and the reported reasoning-token counts vary in every case, which localizes the variance to the serving stack. The majority-vote root-cause accuracy over the five repeats is .817, but because this analysis was not preregistered we report it as exploratory rather than as a headline metric; a preregistered self-consistency protocol is required before voting can serve as an attribution rule.
 
 \paragraph{Comparison with FLM.}
 On the 60 shared cases the two methods are close but differ in kind: FLM answers 59 of 60 correctly (safe attribution), the model answers 45 of 60 when all five repeats must agree and 60 of 60 when a single correct repeat suffices. The union is complete -- every case is solved by FLM or by at least one model repeat -- but nothing in the model's output identifies \emph{which} repeat is correct without ground truth, whereas FLM's answer is deterministic and its single failure is exactly the noisy-probe overconfidence described in Section~\ref{sec:runtimes}. The comparison is also asymmetric in confirmation semantics: the model's answer requires no intervention, so its RCA numbers are candidate-level claims. This is not a model leaderboard; it is evidence that a trace-only LLM is a strong candidate generator but needs an attribution rule and a confirmation protocol to become safe.
@@ -427,13 +449,20 @@ The causal checks were staged. New diagnostics first exposed gate decisions and 
 
 This case also shows why replay must freeze more than code. Candidate-pool membership, source timestamps, capture state, retrieval depth, and evidence limits are part of the causal context. Without them, a changed result across two runs is evidence of drift, not evidence that the answer stage is nondeterministic. The public description is deliberately redacted and supports stage-level attribution only.
 
+\subsection{Public postmortem demonstration}
+\label{sec:postmortems}
+
+Both investigations above concern the author's own systems. To probe external validity without manufactured ground truth, we encoded five public post-incident reports from five operators between 2017 and 2022 -- AWS S3 (2017), GitHub (2018), Cloudflare (2019), Meta (2021), and Atlassian (2022) -- following the source-selection and encoding protocol registered in the artifact. No intervention was possible on third-party systems, so every output is a candidate set; the operator's own conclusion is recorded as a narrative reference, not as truth.
+
+The results are structural. All five encodings produce well-formed, non-empty candidate sets in which every member names a mechanism that appears in the narrative before the observed failure, and each operator-named mechanism appears in the corresponding FLM candidate set. The IL/FL separation adds structure that the reports state only implicitly: a capacity floor violated before the S3 index subsystem stopped serving; a replication-divergence invariant violated before GitHub's fail-back became unsafe; a progressive-rollout invariant violated by Cloudflare's one-shot WAF deployment even in simulated mode; an admission gate that failed to block Meta's backbone command; an identifier-type gate that accepted site IDs where app IDs were intended before Atlassian's records were destroyed. Three of the five incidents produce non-exact statuses -- two cross-stage exceptions for upstream shared-state causes and one reacquisition from immutable backups -- and the one observation gap (Atlassian's monitoring observed nothing because the deletion used a standard workflow) is reported as bounded rather than guessed. One case is retained deliberately as an applicability boundary: Cloudflare's evidence is a continuous resource (edge CPU capacity), not a discrete item, and the mapping is weak exactly where the paper's evidence-item abstraction strains. The encodings, validator, and per-case readings are in the artifact.
+
 \section{Threats to validity}
 
 \textbf{Construct validity.} The first benchmark encodes FLM-compatible ground truth, so its perfect result is an implementation check; the ablations, not the headline scores, carry its evidential weight. The executable runtimes reduce that coupling but remain authored reference systems. Safe attribution is a method-specific outcome and should not replace end-to-end incident resolution time.
 
 \textbf{Internal validity.} Faults and probes are controlled, and the same authors designed the method and evaluation. The 360 runtime runs share one fault configuration per runtime/profile, so repetitions are dependent within a configuration; we report clustered intervals alongside run-level tests and avoid configuration-level significance claims. The final real-LLM prompt was frozen after two compatibility pilots, not before any contact with the endpoint. Those pilots are excluded and documented, but prompt adaptation can bias the result. The temperature-zero agreement failure shows that the serving stack contributes nondeterminism that the experiment does not control, and the gateway's provider-reported model ID is not a versioned model snapshot. A preregistered external evaluation would reduce all three risks.
 
-\textbf{External validity.} Three executable runtimes are more informative than seven renamed instances, but 18 fault configurations is a small population, the runtimes are deterministic apart from injected probe noise, and the study does not cover production concurrency, organizational handoffs, or unknown ground truth. Two production investigations show plausibility, not prevalence. The second is redacted, was conducted by the system's developers, and is not independently reproducible from the public artifact.
+\textbf{External validity.} Three executable runtimes are more informative than relabeling one shared synthetic pipeline across domains, but 18 fault configurations is a small population, the runtimes are deterministic apart from injected probe noise, and the study does not cover production concurrency, organizational handoffs, or unknown ground truth. Two production investigations show plausibility, not prevalence; the second is redacted, was conducted by the system's developers, and is not independently reproducible from the public artifact. The five public postmortem encodings extend the method to non-authored systems, but they inherit the completeness of the published narratives, carry no ground truth, and were encoded by a single author; prevalence claims remain impossible from this corpus.
 
 \textbf{Conclusion validity.} Confidence intervals and McNemar tests describe repeated benchmark cases, not a random sample of all incidents. At 18 fault configurations, the replay ablation's net effect cannot be statistically separated from zero; we report the corrected/reversed counts so readers can see the mechanism instead of a bare p-value. Multiple baseline comparisons should be treated as secondary. Very small exact $p$-values are reported as bounds rather than numerical zero.
 
@@ -450,7 +479,7 @@ First Loss is an attribution boundary, not a root cause. Invariant Loss can occu
 \section*{Artifact and disclosures}
 
 {\sloppypar
-The preprint and reproducibility artifact are archived at \href{https://doi.org/10.5281/zenodo.22734754}{doi:10.5281/zenodo.22734754}. The archive contains the frozen prompts and raw responses, the per-run score files, and a post-hoc analysis script (\texttt{analyze\_results.py} in the benchmark directory) that regenerates every number, interval, and test reported in Section~4 from the archived result files into per-benchmark \texttt{ANALYSIS.md} reports. Code is licensed under MIT. Benchmark data and paper text are licensed under CC BY 4.0. The author designed the method, validated the experiments, and approved the manuscript. AI assistants supported prose drafting, code implementation, and experiment organization. No human-subject experiment was conducted. No external funding is reported.
+The preprint and reproducibility artifact are archived at \href{https://doi.org/10.5281/zenodo.22734754}{doi:10.5281/zenodo.22734754}. The archive contains the frozen prompts and raw responses, the per-run score files, and a post-hoc analysis script (\texttt{analyze\_results.py} in the benchmark directory) that regenerates every number, interval, and test reported in Section~4 from the archived result files into per-benchmark \texttt{ANALYSIS.md} reports; the controlled-benchmark report also carries the per-family breakdown and the ablation significance tests. The published synthetic run is exactly reproducible; we corrected the paired bootstrap in v1.1.0 to resample shared case indices, point estimates were unchanged, and the confidence intervals in the artifact use the corrected procedure. Code is licensed under MIT. Benchmark data and paper text are licensed under CC BY 4.0. The author designed the method, validated the experiments, and approved the manuscript. AI assistants supported prose drafting, code implementation, and experiment organization. No human-subject experiment was conducted. No external funding is reported.
 \par}
 
 \appendix
@@ -465,13 +494,50 @@ Table~\ref{tab:synthetic} reports the five-method comparison on the controlled b
 \label{tab:synthetic}
 \begin{tabular}{lrrrrr}
 \toprule
-Method & FLA & ILA & RCA & Confirmed & 1-FDAR \\
+Method & FLA & ILA & RCA & Confirmed & $1-\mathrm{FDAR}$ \\
 \midrule
 Final symptom & .150 & .450 & .050 & .050 & .150 \\
 Component RCA & 1.000 & 1.000 & .420 & .420 & .578 \\
 Existence only & 1.000 & .450 & .500 & .500 & 1.000 \\
 Trace pattern & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
 FLM & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Controlled benchmark: per-family breakdown}
+\label{app:families}
+
+Table~\ref{tab:families} reports root-cause accuracy per fault family on the test split. FLM is exact on every family, including the four compound families; the informative columns are the baselines, which lose accuracy precisely on families whose failure semantics depend on the loss boundary (rank loss, identity mismatch, provenance corruption, and the compounds).
+
+\begin{table}[h]
+\centering
+\caption{Root-cause accuracy by fault family, test split (60 cases each).}
+\label{tab:families}
+\begin{tabular}{lrrr}
+\toprule
+Family & FLM & Component & Existence only \\
+\midrule
+assembly\_duplicate\_identity & 1.000 & 1.000 & 1.000 \\
+authority\_corruption & 1.000 & .383 & .000 \\
+budget\_off\_by\_one & 1.000 & .500 & 1.000 \\
+cap\_error & 1.000 & .483 & 1.000 \\
+compound\_identity\_dead\_path & 1.000 & .117 & .000 \\
+compound\_provenance\_gate & 1.000 & .283 & .000 \\
+compound\_rank\_scope & 1.000 & .967 & .000 \\
+compound\_temporal\_budget & 1.000 & .200 & .000 \\
+gate\_error & 1.000 & .683 & 1.000 \\
+identity\_mismatch & 1.000 & .000 & .000 \\
+latent\_dead\_path\_empty & 1.000 & .100 & 1.000 \\
+latent\_dead\_path\_rejected & 1.000 & .783 & 1.000 \\
+latent\_dead\_path\_unreachable & 1.000 & .150 & 1.000 \\
+provenance\_corruption & 1.000 & .233 & .000 \\
+rank\_loss\_positional\_truncation & 1.000 & .183 & .000 \\
+reader\_error & 1.000 & 1.000 & 1.000 \\
+retrieval\_miss & 1.000 & .083 & 1.000 \\
+scope\_filter\_mismatch & 1.000 & .217 & .000 \\
+selector\_error & 1.000 & .683 & 1.000 \\
+temporal\_invalidity & 1.000 & .350 & .000 \\
 \bottomrule
 \end{tabular}
 \end{table}

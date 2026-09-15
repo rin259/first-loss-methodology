@@ -4,8 +4,8 @@
 - Author: KuangYu Chen
 - Primary category: cs.SE (Software Engineering)
 - License: CC BY 4.0
-- Comments: 12 pages, 2 figures, 7 tables; accompanying v1.1.2 reproducibility artifact at https://doi.org/10.5281/zenodo.22734754
-- DOI: 10.5281/zenodo.22734754
+- Comments: 13 pages, 2 figures, 9 tables; accompanying v1.1.3 reproducibility artifact at https://doi.org/10.5281/zenodo.22704462
+- DOI: 10.5281/zenodo.22704462
 - Corresponding email: rin@rin.red
 - Additional affiliation contact: contact@veridicaltech.com
 
@@ -17,4 +17,4 @@ We formalize this distinction with segment-local definitions that cover acquisit
 
 ## Upload
 
-Upload `first-loss-v1.1.2-arxiv-source.tar.gz`. Confirm the generated preview matches `../pdf/first-loss-v1.1.2-preprint.pdf`, then stop before the final submission action unless the author has approved it.
+Upload `first-loss-v1.1.3-arxiv-source.tar.gz`. Confirm the generated preview matches `../pdf/first-loss-v1.1.3-preprint.pdf`, then stop before the final submission action unless the author has approved it.

@@ -1,5 +1,26 @@
 # Release notes
 
+## v1.1.3 manuscript revision
+
+This release adds a no-ground-truth external-validity demonstration and the remaining review fixes. Its version DOI is recorded after the Zenodo archive is minted.
+
+### External validity
+
+- Adds five public postmortem encodings (AWS S3 2017, GitHub 2018, Cloudflare 2019, Meta 2021, Atlassian 2022) with a source-selection protocol, a structural validator (`benchmark/validate_postmortem_cases.py`), and per-case readings (`experiments/PUBLIC_POSTMORTEMS.md`). All outputs are candidate sets; the operator's conclusion is a narrative reference, not truth.
+
+### Paper minor revisions
+
+- Adds a notation table and a per-evidence-item aggregation rule for multi-item losses.
+- Defines FDAR in the paper and reports ablation significance (exact McNemar vs the full method) in the ablation table.
+- Adds the per-family breakdown as Appendix B and the controlled-benchmark post-hoc report (`benchmark/results/ANALYSIS.md`).
+- Moves the bootstrap-correction note to the artifact disclosure and reports content-level repeat verification for the LLM baseline (raw outputs byte-distinct in 60/60 cases at temperature zero).
+- CI now regenerates the per-benchmark `ANALYSIS.md` reports and fails on drift from the frozen result files.
+
+### Artifacts
+
+- Preprint PDF: `first-loss-v1.1.3-preprint.pdf`
+- arXiv-ready source bundle: `first-loss-v1.1.3-arxiv-source.tar.gz`
+
 ## v1.1.2 manuscript revision
 
 This release is permanently archived at DOI [10.5281/zenodo.22734754](https://doi.org/10.5281/zenodo.22734754).

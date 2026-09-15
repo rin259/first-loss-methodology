@@ -20,5 +20,8 @@ jobs:
           python3 benchmark/conservation_schema.py /tmp/flm-ci-results/cases.jsonl --split test
           python3 benchmark/conservation_schema.py /tmp/flm-ci-results/cases.jsonl --split replay
           python3 benchmark/runtime_experiments.py --output-dir /tmp/flm-runtime-results --repetitions 2
+          python3 benchmark/validate_postmortem_cases.py benchmark/public_postmortem_cases.jsonl
+          python3 benchmark/analyze_results.py
+          git diff --exit-code benchmark/results/ANALYSIS.md benchmark/runtime_results/ANALYSIS.md benchmark/llm_results/ANALYSIS.md
       - name: Smoke-check report
         run: test -s /tmp/flm-ci-results/REPORT.md
