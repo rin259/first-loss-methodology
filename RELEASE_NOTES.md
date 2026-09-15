@@ -2,7 +2,7 @@
 
 ## v1.1.3 manuscript revision
 
-This release adds a no-ground-truth external-validity demonstration and the remaining review fixes. Its version DOI is recorded after the Zenodo archive is minted.
+This release is permanently archived at DOI [10.5281/zenodo.22764125](https://doi.org/10.5281/zenodo.22764125).
 
 ### External validity
 

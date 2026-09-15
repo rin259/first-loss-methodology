@@ -4,7 +4,7 @@
 
 ## Cite
 
-See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.3` preprint and reproducibility artifact are archived in the Zenodo version chain under concept DOI [10.5281/zenodo.22704462](https://doi.org/10.5281/zenodo.22704462). This revision adds a public-postmortem external-validity demonstration and the remaining review fixes. An arXiv identifier will be added after submission and moderation.
+See `CITATION.cff`, `citation.bib`, or `CITATION.md`. The released `v1.1.3` preprint and reproducibility artifact are archived at DOI [10.5281/zenodo.22764125](https://doi.org/10.5281/zenodo.22764125). This revision adds a public-postmortem external-validity demonstration and the remaining review fixes. An arXiv identifier will be added after submission and moderation.
 
 这个仓库把 FLM 从工程调试笔记提升为可复现的软件工程方法研究：
 
